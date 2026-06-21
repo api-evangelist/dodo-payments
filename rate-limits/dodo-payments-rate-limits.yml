@@ -1,0 +1,57 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Dodo Payments
+providerId: dodo-payments
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Payments
+- Merchant of Record
+- Subscriptions
+- Billing
+- Global Commerce
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Dodo Payments enforces per-account rate limits on its REST API expressed
+  as requests per window, returning HTTP 429 when a client exceeds the
+  allowance. Test mode and live mode are metered independently. Specific
+  per-endpoint request ceilings and reset windows are not reconciled in this
+  artifact; verify them in the Dodo Payments API documentation during
+  reconciliation.
+notes: >-
+  Confirm exact request-per-minute / per-second ceilings, response headers
+  (e.g. retry-after, rate-limit-remaining), and any per-endpoint overrides in
+  the Dodo Payments API reference on reconciliation.
+sources:
+- https://docs.dodopayments.com/api-reference/introduction
+- https://docs.dodopayments.com
+responseCodes:
+  throttled: 429
+limits:
+- name: Requests Per Window
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Per-account request limit on the REST API; exact ceiling and window not reconciled.
+- name: Test Mode
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Test-mode (https://test.dodopayments.com) traffic is metered separately from live mode.
+- name: Webhook Delivery Retries
+  scope: endpoint
+  metric: deliveries
+  limit: provider-managed retry schedule
+  notes: Failed webhook deliveries are retried by Dodo on a backoff schedule, independent of API request limits.
+policies:
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on HTTP 429 responses.
+- name: Idempotency
+  description: Use idempotency where supported on write operations to safely retry without duplicating payments.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

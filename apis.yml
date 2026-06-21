@@ -1,0 +1,240 @@
+aid: dodo-payments
+url: https://raw.githubusercontent.com/api-evangelist/dodo-payments/refs/heads/main/apis.yml
+name: Dodo Payments
+kind: company
+description: Dodo Payments is a merchant-of-record (MoR) payments platform for global
+  digital businesses. Its REST API handles one-time payments, subscriptions, checkout
+  sessions, customers, products, discounts, license keys, payouts, refunds, disputes,
+  and webhooks, while Dodo acts as the seller of record and calculates, collects,
+  and remits sales tax, VAT, and GST across 190+ jurisdictions.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payments
+- Merchant of Record
+- Subscriptions
+- Billing
+- Global Commerce
+created: '2026-06-21'
+modified: '2026-06-21'
+specificationVersion: '0.19'
+apis:
+- aid: dodo-payments:dodo-payments-products-api
+  name: Dodo Payments Products API
+  tags:
+  - Products
+  - Catalog
+  - Digital Goods
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dodopayments.com/api-reference/products
+  baseURL: https://live.dodopayments.com
+  properties:
+  - url: https://docs.dodopayments.com/api-reference/products/create-product
+    type: Documentation
+  - url: https://docs.dodopayments.com/api-reference/products
+    type: APIReference
+  - url: openapi/dodo-payments-openapi.yml
+    type: OpenAPI
+  - url: collections/dodo-payments.postman_collection.json
+    type: PostmanCollection
+  - url: collections/dodo-payments.opencollection.json
+    type: OpenCollection
+  description: Create, list, update, and archive the digital products, prices, and
+    files customers can buy, including one-time and recurring (subscription) products.
+- aid: dodo-payments:dodo-payments-payments-api
+  name: Dodo Payments Payments API
+  tags:
+  - Payments
+  - Transactions
+  - Invoices
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dodopayments.com/api-reference/payments
+  baseURL: https://live.dodopayments.com
+  properties:
+  - url: https://docs.dodopayments.com/api-reference/payments/create-payment
+    type: Documentation
+  - url: https://docs.dodopayments.com/api-reference/payments
+    type: APIReference
+  - url: openapi/dodo-payments-openapi.yml
+    type: OpenAPI
+  - url: collections/dodo-payments.postman_collection.json
+    type: PostmanCollection
+  - url: collections/dodo-payments.opencollection.json
+    type: OpenCollection
+  description: Create one-time payments and payment links, list and retrieve payments,
+    and pull the invoice and line items for a completed transaction.
+- aid: dodo-payments:dodo-payments-subscriptions-api
+  name: Dodo Payments Subscriptions API
+  tags:
+  - Subscriptions
+  - Recurring Billing
+  - Plans
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dodopayments.com/api-reference/subscriptions
+  baseURL: https://live.dodopayments.com
+  properties:
+  - url: https://docs.dodopayments.com/api-reference/subscriptions/create-subscription
+    type: Documentation
+  - url: https://docs.dodopayments.com/api-reference/subscriptions
+    type: APIReference
+  - url: openapi/dodo-payments-openapi.yml
+    type: OpenAPI
+  - url: collections/dodo-payments.postman_collection.json
+    type: PostmanCollection
+  - url: collections/dodo-payments.opencollection.json
+    type: OpenCollection
+  description: Create and manage recurring subscriptions, change plans with preview,
+    apply on-demand charges, and inspect usage and credit history across the billing
+    lifecycle.
+- aid: dodo-payments:dodo-payments-customers-api
+  name: Dodo Payments Customers API
+  tags:
+  - Customers
+  - Customer Portal
+  - Wallets
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dodopayments.com/api-reference/customers
+  baseURL: https://live.dodopayments.com
+  properties:
+  - url: https://docs.dodopayments.com/api-reference/customers/create-customer
+    type: Documentation
+  - url: https://docs.dodopayments.com/api-reference/customers
+    type: APIReference
+  - url: openapi/dodo-payments-openapi.yml
+    type: OpenAPI
+  - url: collections/dodo-payments.postman_collection.json
+    type: PostmanCollection
+  - url: collections/dodo-payments.opencollection.json
+    type: OpenCollection
+  description: Create, list, and update customers and mint self-service customer portal
+    sessions for managing their own subscriptions, payment methods, and invoices.
+- aid: dodo-payments:dodo-payments-checkout-sessions-api
+  name: Dodo Payments Checkout Sessions API
+  tags:
+  - Checkout Sessions
+  - Hosted Checkout
+  - Conversion
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dodopayments.com/api-reference/checkout-sessions
+  baseURL: https://live.dodopayments.com
+  properties:
+  - url: https://docs.dodopayments.com/api-reference/checkout-sessions/create-checkout-session
+    type: Documentation
+  - url: https://docs.dodopayments.com/api-reference/checkout-sessions
+    type: APIReference
+  - url: openapi/dodo-payments-openapi.yml
+    type: OpenAPI
+  - url: collections/dodo-payments.postman_collection.json
+    type: PostmanCollection
+  - url: collections/dodo-payments.opencollection.json
+    type: OpenCollection
+  description: Create hosted checkout sessions for one-time and subscription products,
+    preview totals and taxes, and retrieve session status to drive a conversion-optimized
+    payment flow.
+- aid: dodo-payments:dodo-payments-discounts-api
+  name: Dodo Payments Discounts API
+  tags:
+  - Discounts
+  - Coupons
+  - Promotions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dodopayments.com/api-reference/discounts
+  baseURL: https://live.dodopayments.com
+  properties:
+  - url: https://docs.dodopayments.com/api-reference/discounts/create-discount
+    type: Documentation
+  - url: https://docs.dodopayments.com/api-reference/discounts
+    type: APIReference
+  - url: openapi/dodo-payments-openapi.yml
+    type: OpenAPI
+  - url: collections/dodo-payments.postman_collection.json
+    type: PostmanCollection
+  - url: collections/dodo-payments.opencollection.json
+    type: OpenCollection
+  description: Create, list, update, and delete discount codes, and look up a discount
+    by its public code to apply percentage or fixed-amount promotions at checkout.
+- aid: dodo-payments:dodo-payments-licenses-api
+  name: Dodo Payments Licenses API
+  tags:
+  - Licenses
+  - License Keys
+  - Software Licensing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dodopayments.com/api-reference/licenses
+  baseURL: https://live.dodopayments.com
+  properties:
+  - url: https://docs.dodopayments.com/api-reference/licenses/validate-license
+    type: Documentation
+  - url: https://docs.dodopayments.com/api-reference/licenses
+    type: APIReference
+  - url: openapi/dodo-payments-openapi.yml
+    type: OpenAPI
+  - url: collections/dodo-payments.postman_collection.json
+    type: PostmanCollection
+  - url: collections/dodo-payments.opencollection.json
+    type: OpenCollection
+  description: Validate, activate, and deactivate software license keys and manage
+    license key records and per-device instances for licensed digital products.
+- aid: dodo-payments:dodo-payments-payouts-api
+  name: Dodo Payments Payouts API
+  tags:
+  - Payouts
+  - Settlements
+  - Reporting
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dodopayments.com/api-reference/payouts
+  baseURL: https://live.dodopayments.com
+  properties:
+  - url: https://docs.dodopayments.com/api-reference/payouts/list-payouts
+    type: Documentation
+  - url: https://docs.dodopayments.com/api-reference/payouts
+    type: APIReference
+  - url: openapi/dodo-payments-openapi.yml
+    type: OpenAPI
+  - url: collections/dodo-payments.postman_collection.json
+    type: PostmanCollection
+  - url: collections/dodo-payments.opencollection.json
+    type: OpenCollection
+  description: List settlement payouts and retrieve a per-payout breakup, line-item
+    details, and a downloadable CSV reconciling gross sales, fees, taxes, and net
+    settlement.
+- aid: dodo-payments:dodo-payments-webhooks-api
+  name: Dodo Payments Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.dodopayments.com/api-reference/webhooks
+  baseURL: https://live.dodopayments.com
+  properties:
+  - url: https://docs.dodopayments.com/api-reference/webhooks/create-webhook
+    type: Documentation
+  - url: https://docs.dodopayments.com/api-reference/webhooks
+    type: APIReference
+  - url: openapi/dodo-payments-openapi.yml
+    type: OpenAPI
+  - url: collections/dodo-payments.postman_collection.json
+    type: PostmanCollection
+  - url: collections/dodo-payments.opencollection.json
+    type: OpenCollection
+  description: Register and manage webhook endpoints, configure custom headers, and
+    retrieve the signing key used to verify event payloads for payments, subscriptions,
+    refunds, and disputes.
+common:
+- type: GitHubOrganization
+  url: https://github.com/dodopayments
+- type: LinkedIn
+  url: https://www.linkedin.com/company/dodopayments
+- type: Website
+  url: https://dodopayments.com
+- type: Documentation
+  url: https://docs.dodopayments.com
+- type: Plans
+  url: plans/dodo-payments-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/dodo-payments-rate-limits.yml
+- type: FinOps
+  url: finops/dodo-payments-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

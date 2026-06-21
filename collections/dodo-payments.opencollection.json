@@ -1,0 +1,294 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dodo Payments API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List products", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/products" },
+          "docs": "List products."
+        },
+        {
+          "info": { "name": "Create a product", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/products",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Create a product."
+        },
+        {
+          "info": { "name": "Get a product", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/products/{id}" },
+          "docs": "Get a product."
+        },
+        {
+          "info": { "name": "Update a product", "type": "http" },
+          "http": {
+            "method": "PATCH",
+            "url": "https://live.dodopayments.com/products/{id}",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Update a product."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List payments", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/payments" },
+          "docs": "List payments."
+        },
+        {
+          "info": { "name": "Create a one-time payment", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/payments",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Create a one-time payment."
+        },
+        {
+          "info": { "name": "Get a payment", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/payments/{id}" },
+          "docs": "Get a payment."
+        },
+        {
+          "info": { "name": "Get the invoice for a payment", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/payments/{id}/invoice" },
+          "docs": "Get the invoice for a payment."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List subscriptions", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/subscriptions" },
+          "docs": "List subscriptions."
+        },
+        {
+          "info": { "name": "Create a subscription", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/subscriptions",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Create a subscription."
+        },
+        {
+          "info": { "name": "Get a subscription", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/subscriptions/{id}" },
+          "docs": "Get a subscription."
+        },
+        {
+          "info": { "name": "Change a subscription plan", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/subscriptions/{id}/change-plan",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Change a subscription plan."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List customers", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/customers" },
+          "docs": "List customers."
+        },
+        {
+          "info": { "name": "Create a customer", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/customers",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Create a customer."
+        },
+        {
+          "info": { "name": "Get a customer", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/customers/{id}" },
+          "docs": "Get a customer."
+        },
+        {
+          "info": { "name": "Create a customer portal session", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/customers/{id}/customer-portal/session",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Create a customer portal session."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Checkout Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Create a checkout session", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/checkouts",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Create a checkout session."
+        },
+        {
+          "info": { "name": "Get a checkout session", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/checkouts/{session_id}" },
+          "docs": "Get a checkout session."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Discounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List discounts", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/discounts" },
+          "docs": "List discounts."
+        },
+        {
+          "info": { "name": "Create a discount", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/discounts",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Create a discount."
+        },
+        {
+          "info": { "name": "Get a discount", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/discounts/{discount_id}" },
+          "docs": "Get a discount."
+        },
+        {
+          "info": { "name": "Delete a discount", "type": "http" },
+          "http": { "method": "DELETE", "url": "https://live.dodopayments.com/discounts/{discount_id}" },
+          "docs": "Delete a discount."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Licenses",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Validate a license key", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/licenses/validate",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Validate a license key."
+        },
+        {
+          "info": { "name": "Activate a license key", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/licenses/activate",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Activate a license key."
+        },
+        {
+          "info": { "name": "Deactivate a license key instance", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/licenses/deactivate",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Deactivate a license key instance."
+        },
+        {
+          "info": { "name": "List license keys", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/license_keys" },
+          "docs": "List license keys."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payouts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List payouts", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/payouts" },
+          "docs": "List payouts."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List webhook endpoints", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/webhooks" },
+          "docs": "List webhook endpoints."
+        },
+        {
+          "info": { "name": "Create a webhook endpoint", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/webhooks",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Create a webhook endpoint."
+        },
+        {
+          "info": { "name": "Get a webhook endpoint", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/webhooks/{webhook_id}" },
+          "docs": "Get a webhook endpoint."
+        },
+        {
+          "info": { "name": "Get the webhook signing key", "type": "http" },
+          "http": { "method": "GET", "url": "https://live.dodopayments.com/webhooks/{webhook_id}/secret" },
+          "docs": "Get the webhook signing key."
+        }
+      ]
+    }
+  ]
+}

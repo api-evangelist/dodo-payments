@@ -1,0 +1,325 @@
+{
+  "info": {
+    "name": "Dodo Payments API",
+    "description": "Postman collection for the Dodo Payments merchant-of-record REST API. Set the baseUrl variable to https://live.dodopayments.com (or https://test.dodopayments.com for test mode) and bearerToken to your Dodo Payments API key.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{bearerToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://live.dodopayments.com" },
+    { "key": "bearerToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/products", "host": ["{{baseUrl}}"], "path": ["products"] }
+          }
+        },
+        {
+          "name": "Create a product",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Pro Plan\",\n  \"tax_category\": \"saas\",\n  \"price\": {\n    \"type\": \"recurring_price\",\n    \"price\": 2900,\n    \"currency\": \"USD\",\n    \"payment_frequency_interval\": \"Month\",\n    \"payment_frequency_count\": 1\n  }\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/products", "host": ["{{baseUrl}}"], "path": ["products"] }
+          }
+        },
+        {
+          "name": "Get a product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/products/:id", "host": ["{{baseUrl}}"], "path": ["products", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Update a product",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Pro Plan (updated)\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/products/:id", "host": ["{{baseUrl}}"], "path": ["products", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "List payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"] }
+          }
+        },
+        {
+          "name": "Create a one-time payment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"payment_link\": true,\n  \"billing\": {\n    \"country\": \"US\",\n    \"state\": \"CA\",\n    \"city\": \"San Francisco\",\n    \"street\": \"1 Market St\",\n    \"zipcode\": \"94105\"\n  },\n  \"customer\": {\n    \"email\": \"buyer@example.com\",\n    \"name\": \"Jane Buyer\"\n  },\n  \"product_cart\": [\n    { \"product_id\": \"prod_123\", \"quantity\": 1 }\n  ]\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"] }
+          }
+        },
+        {
+          "name": "Get a payment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/payments/:id", "host": ["{{baseUrl}}"], "path": ["payments", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get the invoice for a payment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/payments/:id/invoice", "host": ["{{baseUrl}}"], "path": ["payments", ":id", "invoice"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subscriptions",
+      "item": [
+        {
+          "name": "List subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/subscriptions", "host": ["{{baseUrl}}"], "path": ["subscriptions"] }
+          }
+        },
+        {
+          "name": "Create a subscription",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"payment_link\": true,\n  \"product_id\": \"prod_123\",\n  \"quantity\": 1,\n  \"billing\": {\n    \"country\": \"US\",\n    \"state\": \"CA\",\n    \"city\": \"San Francisco\",\n    \"street\": \"1 Market St\",\n    \"zipcode\": \"94105\"\n  },\n  \"customer\": {\n    \"email\": \"buyer@example.com\",\n    \"name\": \"Jane Buyer\"\n  }\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/subscriptions", "host": ["{{baseUrl}}"], "path": ["subscriptions"] }
+          }
+        },
+        {
+          "name": "Get a subscription",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/subscriptions/:id", "host": ["{{baseUrl}}"], "path": ["subscriptions", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Change a subscription plan",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"product_id\": \"prod_456\",\n  \"quantity\": 1,\n  \"proration_billing_mode\": \"prorated_immediately\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/subscriptions/:id/change-plan", "host": ["{{baseUrl}}"], "path": ["subscriptions", ":id", "change-plan"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "List customers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/customers", "host": ["{{baseUrl}}"], "path": ["customers"] }
+          }
+        },
+        {
+          "name": "Create a customer",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"buyer@example.com\",\n  \"name\": \"Jane Buyer\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/customers", "host": ["{{baseUrl}}"], "path": ["customers"] }
+          }
+        },
+        {
+          "name": "Get a customer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/customers/:id", "host": ["{{baseUrl}}"], "path": ["customers", ":id"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Create a customer portal session",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/customers/:id/customer-portal/session", "host": ["{{baseUrl}}"], "path": ["customers", ":id", "customer-portal", "session"], "variable": [{ "key": "id", "value": "" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Checkout Sessions",
+      "item": [
+        {
+          "name": "Create a checkout session",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"product_cart\": [\n    { \"product_id\": \"prod_123\", \"quantity\": 1 }\n  ],\n  \"return_url\": \"https://example.com/thanks\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/checkouts", "host": ["{{baseUrl}}"], "path": ["checkouts"] }
+          }
+        },
+        {
+          "name": "Get a checkout session",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/checkouts/:session_id", "host": ["{{baseUrl}}"], "path": ["checkouts", ":session_id"], "variable": [{ "key": "session_id", "value": "" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Discounts",
+      "item": [
+        {
+          "name": "List discounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/discounts", "host": ["{{baseUrl}}"], "path": ["discounts"] }
+          }
+        },
+        {
+          "name": "Create a discount",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"type\": \"percentage\",\n  \"amount\": 1000,\n  \"code\": \"LAUNCH10\",\n  \"usage_limit\": 100\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/discounts", "host": ["{{baseUrl}}"], "path": ["discounts"] }
+          }
+        },
+        {
+          "name": "Get a discount",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/discounts/:discount_id", "host": ["{{baseUrl}}"], "path": ["discounts", ":discount_id"], "variable": [{ "key": "discount_id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Delete a discount",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/discounts/:discount_id", "host": ["{{baseUrl}}"], "path": ["discounts", ":discount_id"], "variable": [{ "key": "discount_id", "value": "" }] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Licenses",
+      "item": [
+        {
+          "name": "Validate a license key",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"license_key\": \"DODO-XXXX-XXXX-XXXX\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/licenses/validate", "host": ["{{baseUrl}}"], "path": ["licenses", "validate"] }
+          }
+        },
+        {
+          "name": "Activate a license key",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"license_key\": \"DODO-XXXX-XXXX-XXXX\",\n  \"name\": \"My Device\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/licenses/activate", "host": ["{{baseUrl}}"], "path": ["licenses", "activate"] }
+          }
+        },
+        {
+          "name": "Deactivate a license key instance",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"license_key\": \"DODO-XXXX-XXXX-XXXX\",\n  \"license_key_instance_id\": \"lki_123\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/licenses/deactivate", "host": ["{{baseUrl}}"], "path": ["licenses", "deactivate"] }
+          }
+        },
+        {
+          "name": "List license keys",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/license_keys", "host": ["{{baseUrl}}"], "path": ["license_keys"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payouts",
+      "item": [
+        {
+          "name": "List payouts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/payouts", "host": ["{{baseUrl}}"], "path": ["payouts"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List webhook endpoints",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": ["{{baseUrl}}"], "path": ["webhooks"] }
+          }
+        },
+        {
+          "name": "Create a webhook endpoint",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"url\": \"https://example.com/webhooks/dodo\",\n  \"description\": \"Production events\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/webhooks", "host": ["{{baseUrl}}"], "path": ["webhooks"] }
+          }
+        },
+        {
+          "name": "Get a webhook endpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/webhooks/:webhook_id", "host": ["{{baseUrl}}"], "path": ["webhooks", ":webhook_id"], "variable": [{ "key": "webhook_id", "value": "" }] }
+          }
+        },
+        {
+          "name": "Get the webhook signing key",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/webhooks/:webhook_id/secret", "host": ["{{baseUrl}}"], "path": ["webhooks", ":webhook_id", "secret"], "variable": [{ "key": "webhook_id", "value": "" }] }
+          }
+        }
+      ]
+    }
+  ]
+}

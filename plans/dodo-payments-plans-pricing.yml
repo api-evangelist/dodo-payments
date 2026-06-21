@@ -1,0 +1,201 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Dodo Payments
+providerId: dodo-payments
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: true
+tags:
+- Payments
+- Merchant of Record
+- Subscriptions
+- Billing
+- Global Commerce
+- Plans
+description: >-
+  Dodo Payments is a merchant of record (MoR) with no monthly fee, no setup
+  fee, and no minimum volume on its standard plan; merchants pay only when
+  they transact. The base rate is a percentage plus a fixed per-transaction
+  fee, with additive surcharges for international payments, subscriptions,
+  and certain payment methods (BNPL, PayPal). Tax management, invoicing,
+  digital product delivery, license keys, and storefront are included.
+  Refunds, disputes, and certain payouts carry flat fees. An Enterprise plan
+  with custom pricing and a startup credits program are also offered.
+notes: >-
+  Fees are merchant-of-record fees deducted before settlement; Dodo is the
+  seller of record and remits global sales tax / VAT / GST. Verify current
+  rates on the Dodo Payments pricing page during reconciliation.
+sources:
+- https://dodopayments.com/pricing
+- https://docs.dodopayments.com
+plans:
+- id: dodo-standard
+  name: Standard (Pay-as-you-go)
+  type: usage
+  description: >-
+    Per-transaction merchant-of-record pricing with no monthly fee, setup
+    fee, or volume minimum. Base rate plus additive surcharges.
+  entries:
+  - label: Base Transaction Fee
+    name: base_transaction
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: domestic_us
+    unit: 1
+    price: 4% + $0.40 per transaction
+    userMultiplied: false
+  - label: International Payments Surcharge
+    name: international_surcharge
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: international
+    unit: 1
+    price: +1.5% per transaction
+    userMultiplied: false
+  - label: Subscriptions Surcharge
+    name: subscription_surcharge
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: +0.5% per transaction
+    userMultiplied: false
+  - label: BNPL Surcharge (Klarna, Afterpay/Clearpay)
+    name: bnpl_surcharge
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: +3% per transaction
+    userMultiplied: false
+  - label: PayPal Surcharge
+    name: paypal_surcharge
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: +3% per transaction
+    userMultiplied: false
+  - label: Domestic India (INR)
+    name: domestic_india
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: india
+    unit: 1
+    price: 4% + $0.15 per transaction
+    userMultiplied: false
+  - label: Usage-Based Billing
+    name: usage_billing
+    type: usage
+    metric: events
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: $1 per 1M events
+    userMultiplied: false
+  - label: Refunds
+    name: refund_fee
+    type: usage
+    metric: refund
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $1 per refund
+    userMultiplied: false
+  - label: Disputes / Chargebacks
+    name: dispute_fee
+    type: usage
+    metric: dispute
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $30 per dispute
+    userMultiplied: false
+  - label: Standard Payouts
+    name: payout_standard
+    type: usage
+    metric: payout
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free (standard FX); $5 if payout under $1,000
+    userMultiplied: false
+  - label: USD SWIFT Payouts
+    name: payout_swift
+    type: usage
+    metric: payout
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $25 per payout
+    userMultiplied: false
+  elements:
+  - name: Payments
+  - name: Subscriptions
+  - name: Checkout Sessions
+  - name: Tax Management (included)
+  - name: Invoicing (included)
+  - name: Digital Product Delivery (included)
+  - name: License Keys (included)
+  - name: Storefront (included)
+  - name: Webhooks
+- id: dodo-startup
+  name: Startup Program
+  type: usage
+  description: >-
+    Up to 12 months of free credits with discounted rates for qualifying
+    startups; apply for eligibility.
+  entries:
+  - label: Startup Credits
+    name: startup_credits
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: up to 12 months free credits (discounted rates)
+    userMultiplied: false
+  elements:
+  - name: Discounted Transaction Rates
+- id: dodo-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom pricing for high-volume merchants with negotiated rates,
+    dedicated support, and tailored terms. Contact Dodo Payments sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: custom / contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Volume Pricing
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,103 @@
+aid: dodo-payments
+name: Dodo Payments
+review:
+  question: Does Dodo Payments expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Dodo Payments delivers asynchronous events via outbound HTTP webhooks,
+    not over WebSocket or HTTP Server-Sent Events (SSE). Webhook endpoints
+    are registered, configured, and verified through REST
+    (POST/GET/PATCH/DELETE /webhooks ...), and event payloads are signed
+    with a per-endpoint secret retrievable at GET /webhooks/{id}/secret.
+    No AsyncAPI document was authored because there is no WebSocket or SSE
+    stream to model; the event surface is server-to-server HTTP callbacks.
+findings:
+  summary: |
+    Dodo Payments does not publish a documented public WebSocket API. The
+    platform is a REST (HTTPS) API under https://live.dodopayments.com
+    (live) and https://test.dodopayments.com (test), authenticated with a
+    Bearer API key. Asynchronous notifications for payments, subscriptions,
+    refunds, disputes, and license events are delivered as outbound HTTP
+    webhooks to merchant-registered endpoints, secured by a signing secret.
+    No realtime, bidirectional WebSocket (ws:// or wss://) endpoint and no
+    Server-Sent Events (SSE) stream are documented as of the review date.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://live.dodopayments.com
+      documented: true
+    - protocol: Webhooks
+      scheme: https
+      note: Outbound HTTP callbacks to merchant-registered endpoints, verified via a per-endpoint signing secret. Server-to-server, not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in the Dodo Payments API reference as of the review date.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events streaming endpoint is documented.
+  endpointsConfirmedRest:
+    - POST   https://live.dodopayments.com/products
+    - GET    https://live.dodopayments.com/products
+    - GET    https://live.dodopayments.com/products/{id}
+    - POST   https://live.dodopayments.com/payments
+    - GET    https://live.dodopayments.com/payments
+    - GET    https://live.dodopayments.com/payments/{id}
+    - GET    https://live.dodopayments.com/payments/{id}/invoice
+    - POST   https://live.dodopayments.com/subscriptions
+    - GET    https://live.dodopayments.com/subscriptions
+    - GET    https://live.dodopayments.com/subscriptions/{id}
+    - POST   https://live.dodopayments.com/subscriptions/{id}/charge
+    - POST   https://live.dodopayments.com/subscriptions/{id}/change-plan
+    - POST   https://live.dodopayments.com/customers
+    - GET    https://live.dodopayments.com/customers
+    - GET    https://live.dodopayments.com/customers/{id}
+    - POST   https://live.dodopayments.com/customers/{id}/customer-portal/session
+    - POST   https://live.dodopayments.com/checkouts
+    - GET    https://live.dodopayments.com/checkouts/{session_id}
+    - POST   https://live.dodopayments.com/discounts
+    - GET    https://live.dodopayments.com/discounts
+    - GET    https://live.dodopayments.com/discounts/{discount_id}
+    - POST   https://live.dodopayments.com/licenses/validate
+    - POST   https://live.dodopayments.com/licenses/activate
+    - POST   https://live.dodopayments.com/licenses/deactivate
+    - GET    https://live.dodopayments.com/license_keys
+    - GET    https://live.dodopayments.com/license_keys/{id}
+    - GET    https://live.dodopayments.com/payouts
+    - POST   https://live.dodopayments.com/refunds
+    - GET    https://live.dodopayments.com/refunds
+    - GET    https://live.dodopayments.com/disputes
+    - GET    https://live.dodopayments.com/disputes/{dispute_id}
+    - POST   https://live.dodopayments.com/webhooks
+    - GET    https://live.dodopayments.com/webhooks
+    - GET    https://live.dodopayments.com/webhooks/{webhook_id}
+    - PATCH  https://live.dodopayments.com/webhooks/{webhook_id}
+    - DELETE https://live.dodopayments.com/webhooks/{webhook_id}
+    - GET    https://live.dodopayments.com/webhooks/{webhook_id}/secret
+sources:
+  - url: https://docs.dodopayments.com/api-reference/introduction
+    type: APIReference
+    note: Documents REST base URLs (live/test) and Bearer API key auth; no WebSocket mentioned.
+  - url: https://docs.dodopayments.com/api-reference/webhooks
+    type: APIReference
+    note: Events are delivered via outbound HTTP webhooks with a signing secret, not WebSocket or SSE.
+  - url: https://dodopayments.com/pricing
+    type: Documentation
+    note: Confirms merchant-of-record fee model; no realtime streaming surface described.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE protocol surface exists; the asynchronous event
+    surface is outbound HTTP webhooks modeled within the REST API. No
+    AsyncAPI artifact was authored. apis.yml documents the nine REST API
+    surfaces (Products, Payments, Subscriptions, Customers, Checkout
+    Sessions, Discounts, Licenses, Payouts, Webhooks).
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
