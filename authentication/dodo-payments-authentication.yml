@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/dodo-payments-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization:
+    Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode
+    key against https://live.dodopayments.com.'
+  sources:
+  - openapi/dodo-payments-openapi.yml
