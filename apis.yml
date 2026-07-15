@@ -221,6 +221,8 @@ apis:
     retrieve the signing key used to verify event payloads for payments, subscriptions,
     refunds, and disputes.
 common:
+- type: AgenticAccess
+  url: agentic-access/dodo-payments-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/dodo-payments-vulnerability-disclosure.yml
 - type: DomainSecurity
