@@ -1,0 +1,140 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments Checkout Sessions License Keys API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: License Keys
+paths:
+  /license_keys:
+    get:
+      operationId: listLicenseKeys
+      tags:
+      - License Keys
+      summary: List license keys
+      parameters:
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of license keys.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseKeyList'
+  /license_keys/{id}:
+    get:
+      operationId: getLicenseKey
+      tags:
+      - License Keys
+      summary: Get a license key
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The license key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseKey'
+    patch:
+      operationId: updateLicenseKey
+      tags:
+      - License Keys
+      summary: Update a license key
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                activations_limit:
+                  type: integer
+                disabled:
+                  type: boolean
+                expires_at:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: The license key was updated.
+components:
+  parameters:
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    LicenseKey:
+      type: object
+      properties:
+        id:
+          type: string
+        business_id:
+          type: string
+        customer_id:
+          type: string
+        product_id:
+          type: string
+        key:
+          type: string
+        status:
+          type: string
+          enum:
+          - active
+          - expired
+          - disabled
+        activations_limit:
+          type: integer
+        instances_count:
+          type: integer
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    LicenseKeyList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseKey'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'

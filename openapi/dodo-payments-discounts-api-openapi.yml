@@ -1,0 +1,188 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments Checkout Sessions Discounts API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: Discounts
+paths:
+  /discounts:
+    get:
+      operationId: listDiscounts
+      tags:
+      - Discounts
+      summary: List discounts
+      parameters:
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of discounts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscountList'
+    post:
+      operationId: createDiscount
+      tags:
+      - Discounts
+      summary: Create a discount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDiscountRequest'
+      responses:
+        '200':
+          description: The created discount.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+  /discounts/{discount_id}:
+    get:
+      operationId: getDiscount
+      tags:
+      - Discounts
+      summary: Get a discount
+      parameters:
+      - name: discount_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The discount.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+    patch:
+      operationId: updateDiscount
+      tags:
+      - Discounts
+      summary: Update a discount
+      parameters:
+      - name: discount_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDiscountRequest'
+      responses:
+        '200':
+          description: The discount was updated.
+    delete:
+      operationId: deleteDiscount
+      tags:
+      - Discounts
+      summary: Delete a discount
+      parameters:
+      - name: discount_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The discount was deleted.
+components:
+  parameters:
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+  schemas:
+    Discount:
+      type: object
+      properties:
+        discount_id:
+          type: string
+        business_id:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+          - percentage
+        amount:
+          type: integer
+          description: Percentage value in basis points (e.g. 1000 = 10%).
+        usage_limit:
+          type: integer
+        times_used:
+          type: integer
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    DiscountList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+    CreateDiscountRequest:
+      type: object
+      required:
+      - amount
+      - type
+      properties:
+        amount:
+          type: integer
+        type:
+          type: string
+          enum:
+          - percentage
+        code:
+          type: string
+        name:
+          type: string
+        usage_limit:
+          type: integer
+        restricted_to:
+          type: array
+          items:
+            type: string
+        expires_at:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'

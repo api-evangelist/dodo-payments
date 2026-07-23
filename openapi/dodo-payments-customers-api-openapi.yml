@@ -1,0 +1,174 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments Checkout Sessions Customers API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: Customers
+paths:
+  /customers:
+    get:
+      operationId: listCustomers
+      tags:
+      - Customers
+      summary: List customers
+      parameters:
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/PageSize'
+      - name: email
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A paginated list of customers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+    post:
+      operationId: createCustomer
+      tags:
+      - Customers
+      summary: Create a customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+      responses:
+        '200':
+          description: The created customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /customers/{id}:
+    get:
+      operationId: getCustomer
+      tags:
+      - Customers
+      summary: Get a customer
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+    patch:
+      operationId: updateCustomer
+      tags:
+      - Customers
+      summary: Update a customer
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+      responses:
+        '200':
+          description: The customer was updated.
+  /customers/{id}/customer-portal/session:
+    post:
+      operationId: createCustomerPortalSession
+      tags:
+      - Customers
+      summary: Create a customer portal session
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A customer portal session with a hosted link.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  link:
+                    type: string
+                    format: uri
+components:
+  schemas:
+    CreateCustomerRequest:
+      type: object
+      required:
+      - email
+      - name
+      properties:
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        phone_number:
+          type: string
+    CustomerList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        business_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  parameters:
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'

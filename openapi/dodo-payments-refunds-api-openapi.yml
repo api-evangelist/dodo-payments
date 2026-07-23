@@ -1,0 +1,127 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments Checkout Sessions Refunds API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: Refunds
+paths:
+  /refunds:
+    get:
+      operationId: listRefunds
+      tags:
+      - Refunds
+      summary: List refunds
+      parameters:
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of refunds.
+    post:
+      operationId: createRefund
+      tags:
+      - Refunds
+      summary: Create a refund
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - payment_id
+              properties:
+                payment_id:
+                  type: string
+                amount:
+                  type: integer
+                  description: Partial refund amount in the smallest currency unit. Omit for a full refund.
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: The created refund.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+  /refunds/{refund_id}:
+    get:
+      operationId: getRefund
+      tags:
+      - Refunds
+      summary: Get a refund
+      parameters:
+      - name: refund_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The refund.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+components:
+  schemas:
+    Refund:
+      type: object
+      properties:
+        refund_id:
+          type: string
+        payment_id:
+          type: string
+        business_id:
+          type: string
+        amount:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+          - succeeded
+          - failed
+          - pending
+          - review
+        reason:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  parameters:
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'

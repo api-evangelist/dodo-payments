@@ -1,0 +1,119 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments Checkout Sessions Licenses API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: Licenses
+paths:
+  /licenses/validate:
+    post:
+      operationId: validateLicense
+      tags:
+      - Licenses
+      summary: Validate a license key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - license_key
+              properties:
+                license_key:
+                  type: string
+                license_key_instance_id:
+                  type: string
+      responses:
+        '200':
+          description: License validation result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+  /licenses/activate:
+    post:
+      operationId: activateLicense
+      tags:
+      - Licenses
+      summary: Activate a license key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - license_key
+              - name
+              properties:
+                license_key:
+                  type: string
+                name:
+                  type: string
+                  description: Name for the license key instance.
+      responses:
+        '200':
+          description: The created license key instance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseKeyInstance'
+  /licenses/deactivate:
+    post:
+      operationId: deactivateLicense
+      tags:
+      - Licenses
+      summary: Deactivate a license key instance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - license_key
+              - license_key_instance_id
+              properties:
+                license_key:
+                  type: string
+                license_key_instance_id:
+                  type: string
+      responses:
+        '200':
+          description: The license key instance was deactivated.
+components:
+  schemas:
+    LicenseKeyInstance:
+      type: object
+      properties:
+        id:
+          type: string
+        license_key_id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'

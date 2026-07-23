@@ -1,0 +1,212 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments Checkout Sessions Products API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: Products
+paths:
+  /products:
+    get:
+      operationId: listProducts
+      tags:
+      - Products
+      summary: List products
+      parameters:
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+    post:
+      operationId: createProduct
+      tags:
+      - Products
+      summary: Create a product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+      responses:
+        '200':
+          description: The created product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /products/{id}:
+    get:
+      operationId: getProduct
+      tags:
+      - Products
+      summary: Get a product
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    patch:
+      operationId: updateProduct
+      tags:
+      - Products
+      summary: Update a product
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+      responses:
+        '200':
+          description: The product was updated.
+  /products/{id}/archive:
+    post:
+      operationId: archiveProduct
+      tags:
+      - Products
+      summary: Archive a product
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The product was archived.
+  /products/{id}/unarchive:
+    post:
+      operationId: unarchiveProduct
+      tags:
+      - Products
+      summary: Unarchive a product
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The product was unarchived.
+components:
+  schemas:
+    ProductList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    CreateProductRequest:
+      type: object
+      required:
+      - name
+      - price
+      - tax_category
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+        tax_category:
+          type: string
+        license_key_enabled:
+          type: boolean
+    Price:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - one_time_price
+          - recurring_price
+        price:
+          type: integer
+          description: Amount in the smallest currency unit.
+        currency:
+          type: string
+          example: USD
+        payment_frequency_interval:
+          type: string
+          enum:
+          - Day
+          - Week
+          - Month
+          - Year
+        payment_frequency_count:
+          type: integer
+        tax_inclusive:
+          type: boolean
+    Product:
+      type: object
+      properties:
+        product_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        business_id:
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+        tax_category:
+          type: string
+          enum:
+          - digital_products
+          - saas
+          - e_book
+          - edtech
+        is_recurring:
+          type: boolean
+        license_key_enabled:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+  parameters:
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'

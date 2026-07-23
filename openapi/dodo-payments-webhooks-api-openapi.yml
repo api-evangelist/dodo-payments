@@ -1,0 +1,222 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments Checkout Sessions Webhooks API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+paths:
+  /webhooks:
+    get:
+      operationId: listWebhooks
+      tags:
+      - Webhooks
+      summary: List webhook endpoints
+      parameters:
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of webhook endpoints.
+    post:
+      operationId: createWebhook
+      tags:
+      - Webhooks
+      summary: Create a webhook endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '200':
+          description: The created webhook endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+  /webhooks/{webhook_id}:
+    get:
+      operationId: getWebhook
+      tags:
+      - Webhooks
+      summary: Get a webhook endpoint
+      parameters:
+      - $ref: '#/components/parameters/WebhookIdPath'
+      responses:
+        '200':
+          description: The webhook endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+    patch:
+      operationId: updateWebhook
+      tags:
+      - Webhooks
+      summary: Update a webhook endpoint
+      parameters:
+      - $ref: '#/components/parameters/WebhookIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+                description:
+                  type: string
+                disabled:
+                  type: boolean
+      responses:
+        '200':
+          description: The webhook endpoint was updated.
+    delete:
+      operationId: deleteWebhook
+      tags:
+      - Webhooks
+      summary: Delete a webhook endpoint
+      parameters:
+      - $ref: '#/components/parameters/WebhookIdPath'
+      responses:
+        '200':
+          description: The webhook endpoint was deleted.
+  /webhooks/{webhook_id}/headers:
+    get:
+      operationId: getWebhookHeaders
+      tags:
+      - Webhooks
+      summary: Get webhook endpoint headers
+      parameters:
+      - $ref: '#/components/parameters/WebhookIdPath'
+      responses:
+        '200':
+          description: The configured headers for the webhook endpoint.
+    patch:
+      operationId: updateWebhookHeaders
+      tags:
+      - Webhooks
+      summary: Update webhook endpoint headers
+      parameters:
+      - $ref: '#/components/parameters/WebhookIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                headers:
+                  type: object
+                  additionalProperties:
+                    type: string
+      responses:
+        '200':
+          description: The webhook headers were updated.
+  /webhooks/{webhook_id}/secret:
+    get:
+      operationId: getWebhookSigningKey
+      tags:
+      - Webhooks
+      summary: Get the webhook signing key
+      parameters:
+      - $ref: '#/components/parameters/WebhookIdPath'
+      responses:
+        '200':
+          description: The signing secret used to verify webhook payloads.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secret:
+                    type: string
+components:
+  parameters:
+    WebhookIdPath:
+      name: webhook_id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+  schemas:
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        description:
+          type: string
+        disabled:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+    CreateWebhookRequest:
+      type: object
+      required:
+      - url
+      properties:
+        url:
+          type: string
+          format: uri
+        description:
+          type: string
+        disabled:
+          type: boolean
+        filter_types:
+          type: array
+          description: Event types to subscribe this endpoint to.
+          items:
+            type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'

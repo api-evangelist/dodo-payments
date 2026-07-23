@@ -1,0 +1,298 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments Checkout Sessions Subscriptions API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: Subscriptions
+paths:
+  /subscriptions:
+    get:
+      operationId: listSubscriptions
+      tags:
+      - Subscriptions
+      summary: List subscriptions
+      parameters:
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of subscriptions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+    post:
+      operationId: createSubscription
+      tags:
+      - Subscriptions
+      summary: Create a subscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubscriptionRequest'
+      responses:
+        '200':
+          description: The created subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+  /subscriptions/{id}:
+    get:
+      operationId: getSubscription
+      tags:
+      - Subscriptions
+      summary: Get a subscription
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+    patch:
+      operationId: updateSubscription
+      tags:
+      - Subscriptions
+      summary: Update a subscription
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+                tax_id:
+                  type: string
+                status:
+                  type: string
+      responses:
+        '200':
+          description: The subscription was updated.
+  /subscriptions/{id}/charge:
+    post:
+      operationId: createSubscriptionCharge
+      tags:
+      - Subscriptions
+      summary: Create an on-demand charge on a subscription
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - product_price
+              properties:
+                product_price:
+                  type: integer
+                  description: Amount in the smallest currency unit.
+                adaptive_currency_fees_inclusive:
+                  type: boolean
+      responses:
+        '200':
+          description: The on-demand charge was created.
+  /subscriptions/{id}/change-plan:
+    post:
+      operationId: changeSubscriptionPlan
+      tags:
+      - Subscriptions
+      summary: Change a subscription plan
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - product_id
+              - proration_billing_mode
+              properties:
+                product_id:
+                  type: string
+                quantity:
+                  type: integer
+                proration_billing_mode:
+                  type: string
+                  enum:
+                  - prorated_immediately
+                  - full_immediately
+      responses:
+        '200':
+          description: The plan was changed.
+components:
+  schemas:
+    CustomerRequest:
+      type: object
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
+      properties:
+        customer_id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        create_new_customer:
+          type: boolean
+    SubscriptionList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+    BillingAddress:
+      type: object
+      required:
+      - country
+      - city
+      - state
+      - street
+      - zipcode
+      properties:
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        city:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
+    CreateSubscriptionRequest:
+      type: object
+      required:
+      - billing
+      - customer
+      - product_id
+      - quantity
+      properties:
+        billing:
+          $ref: '#/components/schemas/BillingAddress'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        payment_link:
+          type: boolean
+        return_url:
+          type: string
+          format: uri
+        trial_period_days:
+          type: integer
+        discount_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    Subscription:
+      type: object
+      properties:
+        subscription_id:
+          type: string
+        business_id:
+          type: string
+        product_id:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        recurring_pre_tax_amount:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - active
+          - on_hold
+          - cancelled
+          - failed
+          - expired
+        payment_frequency_interval:
+          type: string
+        payment_frequency_count:
+          type: integer
+        next_billing_date:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        business_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  parameters:
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'

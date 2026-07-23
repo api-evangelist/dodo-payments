@@ -1,0 +1,145 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments Checkout Sessions API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: Checkout Sessions
+paths:
+  /checkouts:
+    post:
+      operationId: createCheckoutSession
+      tags:
+      - Checkout Sessions
+      summary: Create a checkout session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCheckoutSessionRequest'
+      responses:
+        '200':
+          description: The created checkout session, including a hosted checkout URL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutSession'
+  /checkouts/{session_id}:
+    get:
+      operationId: getCheckoutSession
+      tags:
+      - Checkout Sessions
+      summary: Get a checkout session
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The checkout session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutSession'
+components:
+  schemas:
+    CreateCheckoutSessionRequest:
+      type: object
+      required:
+      - product_cart
+      properties:
+        product_cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckoutSessionProductCartItem'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+        billing_address:
+          $ref: '#/components/schemas/BillingAddress'
+        return_url:
+          type: string
+          format: uri
+        discount_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    BillingAddress:
+      type: object
+      required:
+      - country
+      - city
+      - state
+      - street
+      - zipcode
+      properties:
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        city:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
+    CheckoutSessionProductCartItem:
+      type: object
+      required:
+      - product_id
+      - quantity
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        amount:
+          type: integer
+    CheckoutSession:
+      type: object
+      properties:
+        session_id:
+          type: string
+        checkout_url:
+          type: string
+          format: uri
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    CustomerRequest:
+      type: object
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
+      properties:
+        customer_id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        create_new_customer:
+          type: boolean
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'

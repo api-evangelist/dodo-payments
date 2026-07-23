@@ -1,0 +1,255 @@
+openapi: 3.0.1
+info:
+  title: Dodo Checkout Sessions Payments API
+  description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+- url: https://live.dodopayments.com
+  description: Live mode
+- url: https://test.dodopayments.com
+  description: Test mode
+security:
+- bearerAuth: []
+tags:
+- name: Payments
+paths:
+  /payments:
+    get:
+      operationId: listPayments
+      tags:
+      - Payments
+      summary: List payments
+      parameters:
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/PageSize'
+      - name: customer_id
+        in: query
+        schema:
+          type: string
+      - name: status
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A paginated list of payments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentList'
+    post:
+      operationId: createPayment
+      tags:
+      - Payments
+      summary: Create a one-time payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+      responses:
+        '200':
+          description: The created payment, including a hosted payment link.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+  /payments/{id}:
+    get:
+      operationId: getPayment
+      tags:
+      - Payments
+      summary: Get a payment
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The payment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+  /payments/{id}/invoice:
+    get:
+      operationId: getPaymentInvoice
+      tags:
+      - Payments
+      summary: Get the invoice for a payment
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The invoice PDF for the payment.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /payments/{id}/line-items:
+    get:
+      operationId: getPaymentLineItems
+      tags:
+      - Payments
+      summary: Retrieve payment line items
+      parameters:
+      - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The line items for the payment.
+components:
+  schemas:
+    CreatePaymentRequest:
+      type: object
+      required:
+      - billing
+      - customer
+      - product_cart
+      properties:
+        billing:
+          $ref: '#/components/schemas/BillingAddress'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+        product_cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/OneTimeProductCartItem'
+        payment_link:
+          type: boolean
+        return_url:
+          type: string
+          format: uri
+        discount_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    PaymentList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+    CustomerRequest:
+      type: object
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
+      properties:
+        customer_id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        create_new_customer:
+          type: boolean
+    OneTimeProductCartItem:
+      type: object
+      required:
+      - product_id
+      - quantity
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        amount:
+          type: integer
+    BillingAddress:
+      type: object
+      required:
+      - country
+      - city
+      - state
+      - street
+      - zipcode
+      properties:
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        city:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
+    Payment:
+      type: object
+      properties:
+        payment_id:
+          type: string
+        business_id:
+          type: string
+        total_amount:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+          - succeeded
+          - failed
+          - cancelled
+          - processing
+          - requires_customer_action
+        payment_link:
+          type: string
+          format: uri
+        customer:
+          $ref: '#/components/schemas/Customer'
+        created_at:
+          type: string
+          format: date-time
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        business_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  parameters:
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authenticate with your Dodo Payments API key as a bearer token: `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against https://test.dodopayments.com and a live-mode key against https://live.dodopayments.com.'
