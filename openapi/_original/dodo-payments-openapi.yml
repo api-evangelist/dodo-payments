@@ -1,0 +1,1497 @@
+openapi: 3.0.1
+info:
+  title: Dodo Payments API
+  description: >-
+    REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers
+    products, one-time payments, subscriptions, customers, checkout sessions,
+    discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo
+    Payments acts as the seller of record and handles global sales tax, VAT,
+    and GST calculation, collection, and remittance.
+  termsOfService: https://dodopayments.com/legal/terms-of-service
+  contact:
+    name: Dodo Payments Support
+    url: https://docs.dodopayments.com
+    email: support@dodopayments.com
+  version: '1.0'
+servers:
+  - url: https://live.dodopayments.com
+    description: Live mode
+  - url: https://test.dodopayments.com
+    description: Test mode
+security:
+  - bearerAuth: []
+tags:
+  - name: Products
+  - name: Payments
+  - name: Subscriptions
+  - name: Customers
+  - name: Checkout Sessions
+  - name: Discounts
+  - name: Licenses
+  - name: License Keys
+  - name: Payouts
+  - name: Refunds
+  - name: Disputes
+  - name: Webhooks
+paths:
+  /products:
+    get:
+      operationId: listProducts
+      tags:
+        - Products
+      summary: List products
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of products.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductList'
+    post:
+      operationId: createProduct
+      tags:
+        - Products
+      summary: Create a product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+      responses:
+        '200':
+          description: The created product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /products/{id}:
+    get:
+      operationId: getProduct
+      tags:
+        - Products
+      summary: Get a product
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The product.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    patch:
+      operationId: updateProduct
+      tags:
+        - Products
+      summary: Update a product
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductRequest'
+      responses:
+        '200':
+          description: The product was updated.
+  /products/{id}/archive:
+    post:
+      operationId: archiveProduct
+      tags:
+        - Products
+      summary: Archive a product
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The product was archived.
+  /products/{id}/unarchive:
+    post:
+      operationId: unarchiveProduct
+      tags:
+        - Products
+      summary: Unarchive a product
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The product was unarchived.
+  /payments:
+    get:
+      operationId: listPayments
+      tags:
+        - Payments
+      summary: List payments
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+        - name: customer_id
+          in: query
+          schema:
+            type: string
+        - name: status
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paginated list of payments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentList'
+    post:
+      operationId: createPayment
+      tags:
+        - Payments
+      summary: Create a one-time payment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+      responses:
+        '200':
+          description: The created payment, including a hosted payment link.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+  /payments/{id}:
+    get:
+      operationId: getPayment
+      tags:
+        - Payments
+      summary: Get a payment
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The payment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+  /payments/{id}/invoice:
+    get:
+      operationId: getPaymentInvoice
+      tags:
+        - Payments
+      summary: Get the invoice for a payment
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The invoice PDF for the payment.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /payments/{id}/line-items:
+    get:
+      operationId: getPaymentLineItems
+      tags:
+        - Payments
+      summary: Retrieve payment line items
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The line items for the payment.
+  /subscriptions:
+    get:
+      operationId: listSubscriptions
+      tags:
+        - Subscriptions
+      summary: List subscriptions
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of subscriptions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionList'
+    post:
+      operationId: createSubscription
+      tags:
+        - Subscriptions
+      summary: Create a subscription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSubscriptionRequest'
+      responses:
+        '200':
+          description: The created subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+  /subscriptions/{id}:
+    get:
+      operationId: getSubscription
+      tags:
+        - Subscriptions
+      summary: Get a subscription
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+    patch:
+      operationId: updateSubscription
+      tags:
+        - Subscriptions
+      summary: Update a subscription
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+                tax_id:
+                  type: string
+                status:
+                  type: string
+      responses:
+        '200':
+          description: The subscription was updated.
+  /subscriptions/{id}/charge:
+    post:
+      operationId: createSubscriptionCharge
+      tags:
+        - Subscriptions
+      summary: Create an on-demand charge on a subscription
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_price
+              properties:
+                product_price:
+                  type: integer
+                  description: Amount in the smallest currency unit.
+                adaptive_currency_fees_inclusive:
+                  type: boolean
+      responses:
+        '200':
+          description: The on-demand charge was created.
+  /subscriptions/{id}/change-plan:
+    post:
+      operationId: changeSubscriptionPlan
+      tags:
+        - Subscriptions
+      summary: Change a subscription plan
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - product_id
+                - proration_billing_mode
+              properties:
+                product_id:
+                  type: string
+                quantity:
+                  type: integer
+                proration_billing_mode:
+                  type: string
+                  enum:
+                    - prorated_immediately
+                    - full_immediately
+      responses:
+        '200':
+          description: The plan was changed.
+  /customers:
+    get:
+      operationId: listCustomers
+      tags:
+        - Customers
+      summary: List customers
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+        - name: email
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paginated list of customers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerList'
+    post:
+      operationId: createCustomer
+      tags:
+        - Customers
+      summary: Create a customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+      responses:
+        '200':
+          description: The created customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /customers/{id}:
+    get:
+      operationId: getCustomer
+      tags:
+        - Customers
+      summary: Get a customer
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+    patch:
+      operationId: updateCustomer
+      tags:
+        - Customers
+      summary: Update a customer
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+      responses:
+        '200':
+          description: The customer was updated.
+  /customers/{id}/customer-portal/session:
+    post:
+      operationId: createCustomerPortalSession
+      tags:
+        - Customers
+      summary: Create a customer portal session
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: A customer portal session with a hosted link.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  link:
+                    type: string
+                    format: uri
+  /checkouts:
+    post:
+      operationId: createCheckoutSession
+      tags:
+        - Checkout Sessions
+      summary: Create a checkout session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCheckoutSessionRequest'
+      responses:
+        '200':
+          description: The created checkout session, including a hosted checkout URL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutSession'
+  /checkouts/{session_id}:
+    get:
+      operationId: getCheckoutSession
+      tags:
+        - Checkout Sessions
+      summary: Get a checkout session
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The checkout session.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutSession'
+  /discounts:
+    get:
+      operationId: listDiscounts
+      tags:
+        - Discounts
+      summary: List discounts
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of discounts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DiscountList'
+    post:
+      operationId: createDiscount
+      tags:
+        - Discounts
+      summary: Create a discount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDiscountRequest'
+      responses:
+        '200':
+          description: The created discount.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+  /discounts/{discount_id}:
+    get:
+      operationId: getDiscount
+      tags:
+        - Discounts
+      summary: Get a discount
+      parameters:
+        - name: discount_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The discount.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Discount'
+    patch:
+      operationId: updateDiscount
+      tags:
+        - Discounts
+      summary: Update a discount
+      parameters:
+        - name: discount_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDiscountRequest'
+      responses:
+        '200':
+          description: The discount was updated.
+    delete:
+      operationId: deleteDiscount
+      tags:
+        - Discounts
+      summary: Delete a discount
+      parameters:
+        - name: discount_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The discount was deleted.
+  /licenses/validate:
+    post:
+      operationId: validateLicense
+      tags:
+        - Licenses
+      summary: Validate a license key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - license_key
+              properties:
+                license_key:
+                  type: string
+                license_key_instance_id:
+                  type: string
+      responses:
+        '200':
+          description: License validation result.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+  /licenses/activate:
+    post:
+      operationId: activateLicense
+      tags:
+        - Licenses
+      summary: Activate a license key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - license_key
+                - name
+              properties:
+                license_key:
+                  type: string
+                name:
+                  type: string
+                  description: Name for the license key instance.
+      responses:
+        '200':
+          description: The created license key instance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseKeyInstance'
+  /licenses/deactivate:
+    post:
+      operationId: deactivateLicense
+      tags:
+        - Licenses
+      summary: Deactivate a license key instance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - license_key
+                - license_key_instance_id
+              properties:
+                license_key:
+                  type: string
+                license_key_instance_id:
+                  type: string
+      responses:
+        '200':
+          description: The license key instance was deactivated.
+  /license_keys:
+    get:
+      operationId: listLicenseKeys
+      tags:
+        - License Keys
+      summary: List license keys
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of license keys.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseKeyList'
+  /license_keys/{id}:
+    get:
+      operationId: getLicenseKey
+      tags:
+        - License Keys
+      summary: Get a license key
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      responses:
+        '200':
+          description: The license key.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseKey'
+    patch:
+      operationId: updateLicenseKey
+      tags:
+        - License Keys
+      summary: Update a license key
+      parameters:
+        - $ref: '#/components/parameters/IdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                activations_limit:
+                  type: integer
+                disabled:
+                  type: boolean
+                expires_at:
+                  type: string
+                  format: date-time
+      responses:
+        '200':
+          description: The license key was updated.
+  /payouts:
+    get:
+      operationId: listPayouts
+      tags:
+        - Payouts
+      summary: List payouts
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of payouts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutList'
+  /refunds:
+    get:
+      operationId: listRefunds
+      tags:
+        - Refunds
+      summary: List refunds
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of refunds.
+    post:
+      operationId: createRefund
+      tags:
+        - Refunds
+      summary: Create a refund
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - payment_id
+              properties:
+                payment_id:
+                  type: string
+                amount:
+                  type: integer
+                  description: Partial refund amount in the smallest currency unit. Omit for a full refund.
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: The created refund.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+  /refunds/{refund_id}:
+    get:
+      operationId: getRefund
+      tags:
+        - Refunds
+      summary: Get a refund
+      parameters:
+        - name: refund_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The refund.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refund'
+  /disputes:
+    get:
+      operationId: listDisputes
+      tags:
+        - Disputes
+      summary: List disputes
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of disputes.
+  /disputes/{dispute_id}:
+    get:
+      operationId: getDispute
+      tags:
+        - Disputes
+      summary: Get a dispute
+      parameters:
+        - name: dispute_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The dispute.
+  /webhooks:
+    get:
+      operationId: listWebhooks
+      tags:
+        - Webhooks
+      summary: List webhook endpoints
+      parameters:
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paginated list of webhook endpoints.
+    post:
+      operationId: createWebhook
+      tags:
+        - Webhooks
+      summary: Create a webhook endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+      responses:
+        '200':
+          description: The created webhook endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+  /webhooks/{webhook_id}:
+    get:
+      operationId: getWebhook
+      tags:
+        - Webhooks
+      summary: Get a webhook endpoint
+      parameters:
+        - $ref: '#/components/parameters/WebhookIdPath'
+      responses:
+        '200':
+          description: The webhook endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+    patch:
+      operationId: updateWebhook
+      tags:
+        - Webhooks
+      summary: Update a webhook endpoint
+      parameters:
+        - $ref: '#/components/parameters/WebhookIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+                description:
+                  type: string
+                disabled:
+                  type: boolean
+      responses:
+        '200':
+          description: The webhook endpoint was updated.
+    delete:
+      operationId: deleteWebhook
+      tags:
+        - Webhooks
+      summary: Delete a webhook endpoint
+      parameters:
+        - $ref: '#/components/parameters/WebhookIdPath'
+      responses:
+        '200':
+          description: The webhook endpoint was deleted.
+  /webhooks/{webhook_id}/headers:
+    get:
+      operationId: getWebhookHeaders
+      tags:
+        - Webhooks
+      summary: Get webhook endpoint headers
+      parameters:
+        - $ref: '#/components/parameters/WebhookIdPath'
+      responses:
+        '200':
+          description: The configured headers for the webhook endpoint.
+    patch:
+      operationId: updateWebhookHeaders
+      tags:
+        - Webhooks
+      summary: Update webhook endpoint headers
+      parameters:
+        - $ref: '#/components/parameters/WebhookIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                headers:
+                  type: object
+                  additionalProperties:
+                    type: string
+      responses:
+        '200':
+          description: The webhook headers were updated.
+  /webhooks/{webhook_id}/secret:
+    get:
+      operationId: getWebhookSigningKey
+      tags:
+        - Webhooks
+      summary: Get the webhook signing key
+      parameters:
+        - $ref: '#/components/parameters/WebhookIdPath'
+      responses:
+        '200':
+          description: The signing secret used to verify webhook payloads.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  secret:
+                    type: string
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Authenticate with your Dodo Payments API key as a bearer token:
+        `Authorization: Bearer YOUR_API_KEY`. Use a test-mode key against
+        https://test.dodopayments.com and a live-mode key against
+        https://live.dodopayments.com.
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    WebhookIdPath:
+      name: webhook_id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+  schemas:
+    Price:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - one_time_price
+            - recurring_price
+        price:
+          type: integer
+          description: Amount in the smallest currency unit.
+        currency:
+          type: string
+          example: USD
+        payment_frequency_interval:
+          type: string
+          enum:
+            - Day
+            - Week
+            - Month
+            - Year
+        payment_frequency_count:
+          type: integer
+        tax_inclusive:
+          type: boolean
+    Product:
+      type: object
+      properties:
+        product_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        business_id:
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+        tax_category:
+          type: string
+          enum:
+            - digital_products
+            - saas
+            - e_book
+            - edtech
+        is_recurring:
+          type: boolean
+        license_key_enabled:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+    CreateProductRequest:
+      type: object
+      required:
+        - name
+        - price
+        - tax_category
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+        tax_category:
+          type: string
+        license_key_enabled:
+          type: boolean
+    ProductList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    BillingAddress:
+      type: object
+      required:
+        - country
+        - city
+        - state
+        - street
+        - zipcode
+      properties:
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        city:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
+    OneTimeProductCartItem:
+      type: object
+      required:
+        - product_id
+        - quantity
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        amount:
+          type: integer
+    Payment:
+      type: object
+      properties:
+        payment_id:
+          type: string
+        business_id:
+          type: string
+        total_amount:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+            - succeeded
+            - failed
+            - cancelled
+            - processing
+            - requires_customer_action
+        payment_link:
+          type: string
+          format: uri
+        customer:
+          $ref: '#/components/schemas/Customer'
+        created_at:
+          type: string
+          format: date-time
+    CreatePaymentRequest:
+      type: object
+      required:
+        - billing
+        - customer
+        - product_cart
+      properties:
+        billing:
+          $ref: '#/components/schemas/BillingAddress'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+        product_cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/OneTimeProductCartItem'
+        payment_link:
+          type: boolean
+        return_url:
+          type: string
+          format: uri
+        discount_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    PaymentList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+    Subscription:
+      type: object
+      properties:
+        subscription_id:
+          type: string
+        business_id:
+          type: string
+        product_id:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        recurring_pre_tax_amount:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+            - pending
+            - active
+            - on_hold
+            - cancelled
+            - failed
+            - expired
+        payment_frequency_interval:
+          type: string
+        payment_frequency_count:
+          type: integer
+        next_billing_date:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    CreateSubscriptionRequest:
+      type: object
+      required:
+        - billing
+        - customer
+        - product_id
+        - quantity
+      properties:
+        billing:
+          $ref: '#/components/schemas/BillingAddress'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        payment_link:
+          type: boolean
+        return_url:
+          type: string
+          format: uri
+        trial_period_days:
+          type: integer
+        discount_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    SubscriptionList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        business_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    CustomerRequest:
+      type: object
+      description: >-
+        Either an existing customer reference (customer_id) or new customer
+        details (email, name) used to attach a payment or subscription.
+      properties:
+        customer_id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        create_new_customer:
+          type: boolean
+    CreateCustomerRequest:
+      type: object
+      required:
+        - email
+        - name
+      properties:
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        phone_number:
+          type: string
+    CustomerList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+    CheckoutSession:
+      type: object
+      properties:
+        session_id:
+          type: string
+        checkout_url:
+          type: string
+          format: uri
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    CheckoutSessionProductCartItem:
+      type: object
+      required:
+        - product_id
+        - quantity
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        amount:
+          type: integer
+    CreateCheckoutSessionRequest:
+      type: object
+      required:
+        - product_cart
+      properties:
+        product_cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckoutSessionProductCartItem'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+        billing_address:
+          $ref: '#/components/schemas/BillingAddress'
+        return_url:
+          type: string
+          format: uri
+        discount_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    Discount:
+      type: object
+      properties:
+        discount_id:
+          type: string
+        business_id:
+          type: string
+        code:
+          type: string
+        type:
+          type: string
+          enum:
+            - percentage
+        amount:
+          type: integer
+          description: Percentage value in basis points (e.g. 1000 = 10%).
+        usage_limit:
+          type: integer
+        times_used:
+          type: integer
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    CreateDiscountRequest:
+      type: object
+      required:
+        - amount
+        - type
+      properties:
+        amount:
+          type: integer
+        type:
+          type: string
+          enum:
+            - percentage
+        code:
+          type: string
+        name:
+          type: string
+        usage_limit:
+          type: integer
+        restricted_to:
+          type: array
+          items:
+            type: string
+        expires_at:
+          type: string
+          format: date-time
+    DiscountList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+    LicenseKey:
+      type: object
+      properties:
+        id:
+          type: string
+        business_id:
+          type: string
+        customer_id:
+          type: string
+        product_id:
+          type: string
+        key:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - expired
+            - disabled
+        activations_limit:
+          type: integer
+        instances_count:
+          type: integer
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    LicenseKeyList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseKey'
+    LicenseKeyInstance:
+      type: object
+      properties:
+        id:
+          type: string
+        license_key_id:
+          type: string
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    Payout:
+      type: object
+      properties:
+        payout_id:
+          type: string
+        business_id:
+          type: string
+        amount:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+            - not_initiated
+            - in_progress
+            - on_hold
+            - failed
+            - success
+        payment_method:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    PayoutList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payout'
+    Refund:
+      type: object
+      properties:
+        refund_id:
+          type: string
+        payment_id:
+          type: string
+        business_id:
+          type: string
+        amount:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+            - succeeded
+            - failed
+            - pending
+            - review
+        reason:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        url:
+          type: string
+          format: uri
+        description:
+          type: string
+        disabled:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        created_at:
+          type: string
+          format: date-time
+    CreateWebhookRequest:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          format: uri
+        description:
+          type: string
+        disabled:
+          type: boolean
+        filter_types:
+          type: array
+          description: Event types to subscribe this endpoint to.
+          items:
+            type: string
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string

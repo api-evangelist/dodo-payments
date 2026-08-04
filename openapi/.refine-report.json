@@ -1,0 +1,36 @@
+{
+  "provider": "dodo-payments",
+  "sources": [
+    "dodo-payments-checkout-sessions-api-openapi.yml",
+    "dodo-payments-customers-api-openapi.yml",
+    "dodo-payments-discounts-api-openapi.yml",
+    "dodo-payments-disputes-api-openapi.yml",
+    "dodo-payments-license-keys-api-openapi.yml",
+    "dodo-payments-licenses-api-openapi.yml",
+    "dodo-payments-payments-api-openapi.yml",
+    "dodo-payments-payouts-api-openapi.yml",
+    "dodo-payments-products-api-openapi.yml",
+    "dodo-payments-refunds-api-openapi.yml",
+    "dodo-payments-subscriptions-api-openapi.yml",
+    "dodo-payments-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "dodo-payments-checkout-sessions-api-openapi.yml",
+    "dodo-payments-customers-api-openapi.yml",
+    "dodo-payments-discounts-api-openapi.yml",
+    "dodo-payments-disputes-api-openapi.yml",
+    "dodo-payments-license-keys-api-openapi.yml",
+    "dodo-payments-licenses-api-openapi.yml",
+    "dodo-payments-payments-api-openapi.yml",
+    "dodo-payments-payouts-api-openapi.yml",
+    "dodo-payments-products-api-openapi.yml",
+    "dodo-payments-refunds-api-openapi.yml",
+    "dodo-payments-subscriptions-api-openapi.yml",
+    "dodo-payments-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
