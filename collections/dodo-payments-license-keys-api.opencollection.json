@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dodo Payments Checkout Sessions License Keys API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "License Keys",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List license keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://live.dodopayments.com/license_keys",
+            "params": [
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List license keys"
+        },
+        {
+          "info": {
+            "name": "Get a license key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://live.dodopayments.com/license_keys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a license key"
+        },
+        {
+          "info": {
+            "name": "Update a license key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://live.dodopayments.com/license_keys/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a license key"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

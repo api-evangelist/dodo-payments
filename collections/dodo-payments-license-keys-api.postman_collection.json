@@ -1,0 +1,335 @@
+{
+  "item": [
+    {
+      "id": "520abe9a-6b94-44a6-baf5-1f7fc3a0360b",
+      "name": "License Keys",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2273e45c-f8de-4230-b6e0-5c18e195d935",
+          "name": "List license keys",
+          "request": {
+            "name": "List license keys",
+            "description": {},
+            "url": {
+              "path": [
+                "license_keys"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_number",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e38da25-08a0-4f1c-93b9-e81fdd2a3e9f",
+              "name": "A paginated list of license keys.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "license_keys"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"string\",\n      \"business_id\": \"string\",\n      \"customer_id\": \"string\",\n      \"product_id\": \"string\",\n      \"key\": \"string\",\n      \"status\": \"active\",\n      \"activations_limit\": 7796,\n      \"instances_count\": 7515,\n      \"expires_at\": \"1963-04-01T13:16:35.926Z\",\n      \"created_at\": \"1958-03-02T07:05:34.649Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"business_id\": \"string\",\n      \"customer_id\": \"string\",\n      \"product_id\": \"string\",\n      \"key\": \"string\",\n      \"status\": \"active\",\n      \"activations_limit\": 2531,\n      \"instances_count\": 8805,\n      \"expires_at\": \"1981-09-25T23:17:20.241Z\",\n      \"created_at\": \"1957-10-01T02:41:54.587Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0aeb45b0-2053-4f1a-abcc-1d26d80bfa18",
+          "name": "Get a license key",
+          "request": {
+            "name": "Get a license key",
+            "description": {},
+            "url": {
+              "path": [
+                "license_keys",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a00d1686-994c-4110-afcd-23eb3b4fa892",
+              "name": "The license key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "license_keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"business_id\": \"string\",\n  \"customer_id\": \"string\",\n  \"product_id\": \"string\",\n  \"key\": \"string\",\n  \"status\": \"active\",\n  \"activations_limit\": 6486,\n  \"instances_count\": 8997,\n  \"expires_at\": \"1963-01-08T20:13:44.658Z\",\n  \"created_at\": \"1989-06-14T13:42:40.574Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b813fa1-a497-4afa-8491-96f642bb9c70",
+          "name": "Update a license key",
+          "request": {
+            "name": "Update a license key",
+            "description": {},
+            "url": {
+              "path": [
+                "license_keys",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"activations_limit\": \"<integer>\",\n  \"disabled\": \"<boolean>\",\n  \"expires_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2bdbfec4-5101-4ec9-9b05-7e61e57b05a3",
+              "name": "The license key was updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "license_keys",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"activations_limit\": \"<integer>\",\n  \"disabled\": \"<boolean>\",\n  \"expires_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://live.dodopayments.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "401fa64d-5396-4cdf-948d-657bf8c14329",
+    "name": "Dodo Payments Checkout Sessions License Keys API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.\n\nContact Support:\n Name: Dodo Payments Support\n Email: support@dodopayments.com",
+      "type": "text/plain"
+    }
+  }
+}

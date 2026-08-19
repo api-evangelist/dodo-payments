@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dodo Payments Checkout Sessions Disputes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Disputes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List disputes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://live.dodopayments.com/disputes",
+            "params": [
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List disputes"
+        },
+        {
+          "info": {
+            "name": "Get a dispute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://live.dodopayments.com/disputes/:dispute_id",
+            "params": [
+              {
+                "name": "dispute_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a dispute"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

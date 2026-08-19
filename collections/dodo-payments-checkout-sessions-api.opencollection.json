@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dodo Payments Checkout Sessions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Checkout Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a checkout session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/checkouts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a checkout session"
+        },
+        {
+          "info": {
+            "name": "Get a checkout session",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://live.dodopayments.com/checkouts/:session_id",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a checkout session"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

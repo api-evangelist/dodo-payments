@@ -1,0 +1,230 @@
+{
+  "item": [
+    {
+      "id": "f7d9ea1c-c728-4ce5-82b3-bc21aac1980c",
+      "name": "Checkout Sessions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3047cb59-bda2-4dea-a201-a0b7eadd40d1",
+          "name": "Create a checkout session",
+          "request": {
+            "name": "Create a checkout session",
+            "description": {},
+            "url": {
+              "path": [
+                "checkouts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_cart\": [\n    {\n      \"product_id\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"amount\": \"<integer>\"\n    },\n    {\n      \"product_id\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"amount\": \"<integer>\"\n    }\n  ],\n  \"customer\": {\n    \"customer_id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"create_new_customer\": \"<boolean>\"\n  },\n  \"billing_address\": {\n    \"country\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street\": \"<string>\",\n    \"zipcode\": \"<string>\"\n  },\n  \"return_url\": \"<uri>\",\n  \"discount_code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "91294f63-262e-467d-ad30-878b6da8a1e2",
+              "name": "The created checkout session, including a hosted checkout URL.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"product_cart\": [\n    {\n      \"product_id\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"amount\": \"<integer>\"\n    },\n    {\n      \"product_id\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"amount\": \"<integer>\"\n    }\n  ],\n  \"customer\": {\n    \"customer_id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"create_new_customer\": \"<boolean>\"\n  },\n  \"billing_address\": {\n    \"country\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street\": \"<string>\",\n    \"zipcode\": \"<string>\"\n  },\n  \"return_url\": \"<uri>\",\n  \"discount_code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"session_id\": \"string\",\n  \"checkout_url\": \"https://LexCY.itgYldfopCEuLfPH\",\n  \"status\": \"string\",\n  \"created_at\": \"1973-03-16T20:29:15.377Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "48d76fb2-e150-47a6-86eb-f9144047d741",
+          "name": "Get a checkout session",
+          "request": {
+            "name": "Get a checkout session",
+            "description": {},
+            "url": {
+              "path": [
+                "checkouts",
+                ":session_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "session_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf624799-a4a2-4265-9f93-2ca3d6afbf4c",
+              "name": "The checkout session.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "checkouts",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"session_id\": \"string\",\n  \"checkout_url\": \"https://LexCY.itgYldfopCEuLfPH\",\n  \"status\": \"string\",\n  \"created_at\": \"1973-03-16T20:29:15.377Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://live.dodopayments.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4044e6f8-2376-4af3-9c2e-6d3b80e86b57",
+    "name": "Dodo Payments Checkout Sessions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.\n\nContact Support:\n Name: Dodo Payments Support\n Email: support@dodopayments.com",
+      "type": "text/plain"
+    }
+  }
+}

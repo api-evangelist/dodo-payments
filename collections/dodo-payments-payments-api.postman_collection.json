@@ -1,0 +1,523 @@
+{
+  "item": [
+    {
+      "id": "b89bcbf0-c0cc-4fec-a994-5d42c31d1dce",
+      "name": "Payments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1c509147-179c-4b27-be1d-a886fb372eb4",
+          "name": "List payments",
+          "request": {
+            "name": "List payments",
+            "description": {},
+            "url": {
+              "path": [
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page_number",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "customer_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3901dc65-a5a9-4cfc-9e38-16025009472f",
+              "name": "A paginated list of payments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_number",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "customer_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"payment_id\": \"string\",\n      \"business_id\": \"string\",\n      \"total_amount\": 8505,\n      \"currency\": \"string\",\n      \"status\": \"succeeded\",\n      \"payment_link\": \"http://VQfRJgMKhWzmCADyWHQsTqTQnpPa.onflux2xn2mp.1v\",\n      \"customer\": {\n        \"customer_id\": \"string\",\n        \"business_id\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"ZJFvFn2-OPWYNFR@rwqJeBKmfoGLYGXPXqphLUDBEeWL.dt\",\n        \"phone_number\": \"string\",\n        \"created_at\": \"2020-01-07T01:19:42.340Z\"\n      },\n      \"created_at\": \"2015-12-12T01:04:41.271Z\"\n    },\n    {\n      \"payment_id\": \"string\",\n      \"business_id\": \"string\",\n      \"total_amount\": 8277,\n      \"currency\": \"string\",\n      \"status\": \"failed\",\n      \"payment_link\": \"https://qrkAErYzwHJwIW.znpSuhBphtbub0dOlCWoSaDfKGwEFfPEf7z7YQXWEtUL.h.hTKBRFKv8fn9P7\",\n      \"customer\": {\n        \"customer_id\": \"string\",\n        \"business_id\": \"string\",\n        \"name\": \"string\",\n        \"email\": \"Gs5@KTPgZzXqVreEqbxpkkHCmZqcIAuEcv.mn\",\n        \"phone_number\": \"string\",\n        \"created_at\": \"2002-03-03T07:59:01.628Z\"\n      },\n      \"created_at\": \"2016-05-29T04:26:52.111Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82f0e420-3da0-47eb-a66e-7bcdc39dfa6c",
+          "name": "Create a one-time payment",
+          "request": {
+            "name": "Create a one-time payment",
+            "description": {},
+            "url": {
+              "path": [
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"billing\": {\n    \"country\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street\": \"<string>\",\n    \"zipcode\": \"<string>\"\n  },\n  \"customer\": {\n    \"customer_id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"create_new_customer\": \"<boolean>\"\n  },\n  \"product_cart\": [\n    {\n      \"product_id\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"amount\": \"<integer>\"\n    },\n    {\n      \"product_id\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"amount\": \"<integer>\"\n    }\n  ],\n  \"payment_link\": \"<boolean>\",\n  \"return_url\": \"<uri>\",\n  \"discount_code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "316881f6-6186-4d1e-8cae-e8deb1edddad",
+              "name": "The created payment, including a hosted payment link.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"billing\": {\n    \"country\": \"<string>\",\n    \"city\": \"<string>\",\n    \"state\": \"<string>\",\n    \"street\": \"<string>\",\n    \"zipcode\": \"<string>\"\n  },\n  \"customer\": {\n    \"customer_id\": \"<string>\",\n    \"email\": \"<email>\",\n    \"name\": \"<string>\",\n    \"create_new_customer\": \"<boolean>\"\n  },\n  \"product_cart\": [\n    {\n      \"product_id\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"amount\": \"<integer>\"\n    },\n    {\n      \"product_id\": \"<string>\",\n      \"quantity\": \"<integer>\",\n      \"amount\": \"<integer>\"\n    }\n  ],\n  \"payment_link\": \"<boolean>\",\n  \"return_url\": \"<uri>\",\n  \"discount_code\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payment_id\": \"string\",\n  \"business_id\": \"string\",\n  \"total_amount\": 8360,\n  \"currency\": \"string\",\n  \"status\": \"processing\",\n  \"payment_link\": \"http://lokYfbJVhtoOXSUQChAnPQihloiIG.juwvhgNyWYKDOPO-WsqtuGLv2E7go.SIEGYOasiDNuzrT8v,ZLfwGxitSlYNKWWDO\",\n  \"customer\": {\n    \"customer_id\": \"string\",\n    \"business_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"JJR@BIoArQiVuwDgZekxGRcckubGPjVHLR.ikci\",\n    \"phone_number\": \"string\",\n    \"created_at\": \"2023-09-11T07:38:54.809Z\"\n  },\n  \"created_at\": \"2026-04-25T20:35:13.335Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f06de60-c28f-466f-a368-8cac57ce712c",
+          "name": "Get a payment",
+          "request": {
+            "name": "Get a payment",
+            "description": {},
+            "url": {
+              "path": [
+                "payments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c01b0115-db34-445c-a5ab-2dc7b83f44db",
+              "name": "The payment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payment_id\": \"string\",\n  \"business_id\": \"string\",\n  \"total_amount\": 8360,\n  \"currency\": \"string\",\n  \"status\": \"processing\",\n  \"payment_link\": \"http://lokYfbJVhtoOXSUQChAnPQihloiIG.juwvhgNyWYKDOPO-WsqtuGLv2E7go.SIEGYOasiDNuzrT8v,ZLfwGxitSlYNKWWDO\",\n  \"customer\": {\n    \"customer_id\": \"string\",\n    \"business_id\": \"string\",\n    \"name\": \"string\",\n    \"email\": \"JJR@BIoArQiVuwDgZekxGRcckubGPjVHLR.ikci\",\n    \"phone_number\": \"string\",\n    \"created_at\": \"2023-09-11T07:38:54.809Z\"\n  },\n  \"created_at\": \"2026-04-25T20:35:13.335Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f0c1def-b0bb-4354-876f-10687cdd5d73",
+          "name": "Get the invoice for a payment",
+          "request": {
+            "name": "Get the invoice for a payment",
+            "description": {},
+            "url": {
+              "path": [
+                "payments",
+                ":id",
+                "invoice"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "127c00c5-8704-476a-83a7-d463481a25c7",
+              "name": "The invoice PDF for the payment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    ":id",
+                    "invoice"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99593d3c-19d8-4400-a7f1-43fbb71c8dec",
+          "name": "Retrieve payment line items",
+          "request": {
+            "name": "Retrieve payment line items",
+            "description": {},
+            "url": {
+              "path": [
+                "payments",
+                ":id",
+                "line-items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "53b80810-8ac6-4c9e-bf5f-139f439663f5",
+              "name": "The line items for the payment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payments",
+                    ":id",
+                    "line-items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://live.dodopayments.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "945b0012-cecf-4ab8-9799-1580d9bf8ea6",
+    "name": "Dodo Checkout Sessions Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.\n\nContact Support:\n Name: Dodo Payments Support\n Email: support@dodopayments.com",
+      "type": "text/plain"
+    }
+  }
+}

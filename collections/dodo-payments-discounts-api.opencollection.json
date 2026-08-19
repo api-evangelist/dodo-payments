@@ -1,0 +1,120 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dodo Payments Checkout Sessions Discounts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://live.dodopayments.com/discounts",
+            "params": [
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List discounts"
+        },
+        {
+          "info": {
+            "name": "Create a discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://live.dodopayments.com/discounts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a discount"
+        },
+        {
+          "info": {
+            "name": "Get a discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://live.dodopayments.com/discounts/:discount_id",
+            "params": [
+              {
+                "name": "discount_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a discount"
+        },
+        {
+          "info": {
+            "name": "Update a discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://live.dodopayments.com/discounts/:discount_id",
+            "params": [
+              {
+                "name": "discount_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a discount"
+        },
+        {
+          "info": {
+            "name": "Delete a discount",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://live.dodopayments.com/discounts/:discount_id",
+            "params": [
+              {
+                "name": "discount_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a discount"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
