@@ -24,6 +24,12 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dodo-payme
 tags:
 - Payments
 - Merchant of Record
+- Subscription
+- Billing
+- Global Commerce
+tags_raw:
+- Payments
+- Merchant of Record
 - Subscriptions
 - Billing
 - Global Commerce
@@ -437,6 +443,8 @@ apis:
   humanURL: https://docs.dodopayments.com/api-reference/products
   baseURL: https://live.dodopayments.com
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -537,6 +545,8 @@ apis:
   humanURL: https://docs.dodopayments.com/api-reference/products
   baseURL: https://live.dodopayments.com
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -587,6 +597,8 @@ apis:
   humanURL: https://docs.dodopayments.com/api-reference/products
   baseURL: https://live.dodopayments.com
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
