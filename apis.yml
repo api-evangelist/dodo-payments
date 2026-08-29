@@ -7,6 +7,18 @@ description: Dodo Payments is a merchant-of-record (MoR) payments platform for g
   sessions, customers, products, discounts, license keys, payouts, refunds, disputes,
   and webhooks, while Dodo acts as the seller of record and calculates, collects,
   and remits sales tax, VAT, and GST across 190+ jurisdictions.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
