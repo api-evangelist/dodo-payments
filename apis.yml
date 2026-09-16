@@ -2,11 +2,10 @@ aid: dodo-payments
 url: https://raw.githubusercontent.com/api-evangelist/dodo-payments/refs/heads/main/apis.yml
 name: Dodo Payments
 kind: company
-description: Dodo Payments is a merchant-of-record (MoR) payments platform for global
-  digital businesses. Its REST API handles one-time payments, subscriptions, checkout
-  sessions, customers, products, discounts, license keys, payouts, refunds, disputes,
-  and webhooks, while Dodo acts as the seller of record and calculates, collects,
-  and remits sales tax, VAT, and GST across 190+ jurisdictions.
+description: Dodo Payments is a merchant-of-record (MoR) payments platform for global digital businesses.
+  Its REST API handles one-time payments, subscriptions, checkout sessions, customers, products, discounts,
+  license keys, payouts, refunds, disputes, and webhooks, while Dodo acts as the seller of record and
+  calculates, collects, and remits sales tax, VAT, and GST across 190+ jurisdictions.
 deliveryModel:
   model: saas
   open_source: false
@@ -47,7 +46,7 @@ tags_raw:
 - Billing
 - Global Commerce
 created: '2026-06-21'
-modified: '2026-06-21'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: dodo-payments:dodo-payments-checkout-sessions-api
@@ -351,7 +350,7 @@ apis:
   - type: APIReference
     url: https://docs.dodopayments.com/api-reference/webhooks
 - aid: dodo-payments:dodo-payments-payments-api
-  name: Dodo Payments Payments API
+  name: Dodo Payments API
   description: The Payments API from Dodo Payments — 4 operation(s) for payments.
   humanURL: https://docs.dodopayments.com/api-reference/products
   baseURL: https://live.dodopayments.com
