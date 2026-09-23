@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Dodo Checkout Sessions Payments API
+  title: Dodo Payments API
   description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
   termsOfService: https://dodopayments.com/legal/terms-of-service
   contact:
@@ -104,6 +104,95 @@ paths:
           description: The line items for the payment.
 components:
   schemas:
+    OneTimeProductCartItem:
+      type: object
+      required:
+      - product_id
+      - quantity
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        amount:
+          type: integer
+    Payment:
+      type: object
+      properties:
+        payment_id:
+          type: string
+        business_id:
+          type: string
+        total_amount:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+          - succeeded
+          - failed
+          - cancelled
+          - processing
+          - requires_customer_action
+        payment_link:
+          type: string
+          format: uri
+        customer:
+          $ref: '#/components/schemas/Customer'
+        created_at:
+          type: string
+          format: date-time
+    CustomerRequest:
+      type: object
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
+      properties:
+        customer_id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        create_new_customer:
+          type: boolean
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        business_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    BillingAddress:
+      type: object
+      required:
+      - country
+      - city
+      - state
+      - street
+      - zipcode
+      properties:
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        city:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
     CreatePaymentRequest:
       type: object
       required:
@@ -137,96 +226,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Payment'
-    CustomerRequest:
-      type: object
-      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
-      properties:
-        customer_id:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        create_new_customer:
-          type: boolean
-    OneTimeProductCartItem:
-      type: object
-      required:
-      - product_id
-      - quantity
-      properties:
-        product_id:
-          type: string
-        quantity:
-          type: integer
-        amount:
-          type: integer
-    BillingAddress:
-      type: object
-      required:
-      - country
-      - city
-      - state
-      - street
-      - zipcode
-      properties:
-        country:
-          type: string
-          description: Two-letter ISO country code.
-        city:
-          type: string
-        state:
-          type: string
-        street:
-          type: string
-        zipcode:
-          type: string
-    Payment:
-      type: object
-      properties:
-        payment_id:
-          type: string
-        business_id:
-          type: string
-        total_amount:
-          type: integer
-        currency:
-          type: string
-        status:
-          type: string
-          enum:
-          - succeeded
-          - failed
-          - cancelled
-          - processing
-          - requires_customer_action
-        payment_link:
-          type: string
-          format: uri
-        customer:
-          $ref: '#/components/schemas/Customer'
-        created_at:
-          type: string
-          format: date-time
-    Customer:
-      type: object
-      properties:
-        customer_id:
-          type: string
-        business_id:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        phone_number:
-          type: string
-        created_at:
-          type: string
-          format: date-time
   parameters:
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
     PageSize:
       name: page_size
       in: query
@@ -235,13 +242,6 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
     IdPath:
       name: id
       in: path

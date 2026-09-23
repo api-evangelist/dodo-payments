@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Dodo Payments Checkout Sessions Licenses API
+  title: Dodo Payments Licenses API
   description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
   termsOfService: https://dodopayments.com/legal/terms-of-service
   contact:

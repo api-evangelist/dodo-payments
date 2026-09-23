@@ -1,18 +1,7 @@
 {
   "provider": "dodo-payments",
   "sources": [
-    "dodo-payments-checkout-sessions-api-openapi.yml",
-    "dodo-payments-customers-api-openapi.yml",
-    "dodo-payments-discounts-api-openapi.yml",
-    "dodo-payments-disputes-api-openapi.yml",
-    "dodo-payments-license-keys-api-openapi.yml",
-    "dodo-payments-licenses-api-openapi.yml",
-    "dodo-payments-payments-api-openapi.yml",
-    "dodo-payments-payouts-api-openapi.yml",
-    "dodo-payments-products-api-openapi.yml",
-    "dodo-payments-refunds-api-openapi.yml",
-    "dodo-payments-subscriptions-api-openapi.yml",
-    "dodo-payments-webhooks-api-openapi.yml"
+    "_original/dodo-payments-openapi.yml"
   ],
   "outputs": [
     "dodo-payments-checkout-sessions-api-openapi.yml",
@@ -31,6 +20,23 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "dodo-payments-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "dodo-payments-checkout-sessions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-customers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-discounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-disputes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-license-keys-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-licenses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-payouts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-refunds-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-subscriptions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "dodo-payments-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

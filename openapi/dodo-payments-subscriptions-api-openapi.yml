@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Dodo Payments Checkout Sessions Subscriptions API
+  title: Dodo Payments Subscriptions API
   description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
   termsOfService: https://dodopayments.com/legal/terms-of-service
   contact:
@@ -149,6 +149,40 @@ paths:
           description: The plan was changed.
 components:
   schemas:
+    Subscription:
+      type: object
+      properties:
+        subscription_id:
+          type: string
+        business_id:
+          type: string
+        product_id:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        recurring_pre_tax_amount:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - active
+          - on_hold
+          - cancelled
+          - failed
+          - expired
+        payment_frequency_interval:
+          type: string
+        payment_frequency_count:
+          type: integer
+        next_billing_date:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
     CustomerRequest:
       type: object
       description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
@@ -162,6 +196,23 @@ components:
           type: string
         create_new_customer:
           type: boolean
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        business_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        created_at:
+          type: string
+          format: date-time
     SubscriptionList:
       type: object
       properties:
@@ -218,58 +269,14 @@ components:
           type: object
           additionalProperties:
             type: string
-    Subscription:
-      type: object
-      properties:
-        subscription_id:
-          type: string
-        business_id:
-          type: string
-        product_id:
-          type: string
-        customer:
-          $ref: '#/components/schemas/Customer'
-        recurring_pre_tax_amount:
-          type: integer
-        currency:
-          type: string
-        status:
-          type: string
-          enum:
-          - pending
-          - active
-          - on_hold
-          - cancelled
-          - failed
-          - expired
-        payment_frequency_interval:
-          type: string
-        payment_frequency_count:
-          type: integer
-        next_billing_date:
-          type: string
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-    Customer:
-      type: object
-      properties:
-        customer_id:
-          type: string
-        business_id:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        phone_number:
-          type: string
-        created_at:
-          type: string
-          format: date-time
   parameters:
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
     PageSize:
       name: page_size
       in: query
@@ -278,13 +285,6 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
     IdPath:
       name: id
       in: path

@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Dodo Payments Checkout Sessions Products API
+  title: Dodo Payments Products API
   description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
   termsOfService: https://dodopayments.com/legal/terms-of-service
   contact:
@@ -114,6 +114,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Product'
+    Product:
+      type: object
+      properties:
+        product_id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        business_id:
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+        tax_category:
+          type: string
+          enum:
+          - digital_products
+          - saas
+          - e_book
+          - edtech
+        is_recurring:
+          type: boolean
+        license_key_enabled:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
     CreateProductRequest:
       type: object
       required:
@@ -156,34 +183,14 @@ components:
           type: integer
         tax_inclusive:
           type: boolean
-    Product:
-      type: object
-      properties:
-        product_id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        business_id:
-          type: string
-        price:
-          $ref: '#/components/schemas/Price'
-        tax_category:
-          type: string
-          enum:
-          - digital_products
-          - saas
-          - e_book
-          - edtech
-        is_recurring:
-          type: boolean
-        license_key_enabled:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
   parameters:
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
     PageSize:
       name: page_size
       in: query
@@ -192,13 +199,6 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
     IdPath:
       name: id
       in: path

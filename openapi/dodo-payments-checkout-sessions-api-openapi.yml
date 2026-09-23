@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Dodo Payments Checkout Sessions API
   description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
@@ -80,26 +80,19 @@ components:
           type: object
           additionalProperties:
             type: string
-    BillingAddress:
+    CustomerRequest:
       type: object
-      required:
-      - country
-      - city
-      - state
-      - street
-      - zipcode
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
       properties:
-        country:
+        customer_id:
           type: string
-          description: Two-letter ISO country code.
-        city:
+        email:
           type: string
-        state:
+          format: email
+        name:
           type: string
-        street:
-          type: string
-        zipcode:
-          type: string
+        create_new_customer:
+          type: boolean
     CheckoutSessionProductCartItem:
       type: object
       required:
@@ -125,19 +118,26 @@ components:
         created_at:
           type: string
           format: date-time
-    CustomerRequest:
+    BillingAddress:
       type: object
-      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
+      required:
+      - country
+      - city
+      - state
+      - street
+      - zipcode
       properties:
-        customer_id:
+        country:
           type: string
-        email:
+          description: Two-letter ISO country code.
+        city:
           type: string
-          format: email
-        name:
+        state:
           type: string
-        create_new_customer:
-          type: boolean
+        street:
+          type: string
+        zipcode:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

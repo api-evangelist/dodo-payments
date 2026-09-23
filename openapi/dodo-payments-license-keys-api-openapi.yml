@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Dodo Payments Checkout Sessions License Keys API
+  title: Dodo Payments License Keys API
   description: REST API for the Dodo Payments merchant-of-record (MoR) platform. Covers products, one-time payments, subscriptions, customers, checkout sessions, discounts, license keys, payouts, refunds, disputes, and webhooks. Dodo Payments acts as the seller of record and handles global sales tax, VAT, and GST calculation, collection, and remittance.
   termsOfService: https://dodopayments.com/legal/terms-of-service
   contact:
@@ -74,29 +74,14 @@ paths:
         '200':
           description: The license key was updated.
 components:
-  parameters:
-    PageSize:
-      name: page_size
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
+    LicenseKeyList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseKey'
     LicenseKey:
       type: object
       properties:
@@ -126,13 +111,28 @@ components:
         created_at:
           type: string
           format: date-time
-    LicenseKeyList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicenseKey'
+  parameters:
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http
