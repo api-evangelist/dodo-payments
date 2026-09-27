@@ -104,18 +104,6 @@ paths:
           description: The line items for the payment.
 components:
   schemas:
-    OneTimeProductCartItem:
-      type: object
-      required:
-      - product_id
-      - quantity
-      properties:
-        product_id:
-          type: string
-        quantity:
-          type: integer
-        amount:
-          type: integer
     Payment:
       type: object
       properties:
@@ -143,56 +131,13 @@ components:
         created_at:
           type: string
           format: date-time
-    CustomerRequest:
-      type: object
-      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
-      properties:
-        customer_id:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        create_new_customer:
-          type: boolean
-    Customer:
+    PaymentList:
       type: object
       properties:
-        customer_id:
-          type: string
-        business_id:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        phone_number:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    BillingAddress:
-      type: object
-      required:
-      - country
-      - city
-      - state
-      - street
-      - zipcode
-      properties:
-        country:
-          type: string
-          description: Two-letter ISO country code.
-        city:
-          type: string
-        state:
-          type: string
-        street:
-          type: string
-        zipcode:
-          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
     CreatePaymentRequest:
       type: object
       required:
@@ -219,21 +164,75 @@ components:
           type: object
           additionalProperties:
             type: string
-    PaymentList:
+    Customer:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payment'
+        customer_id:
+          type: string
+        business_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    OneTimeProductCartItem:
+      type: object
+      required:
+      - product_id
+      - quantity
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        amount:
+          type: integer
+    BillingAddress:
+      type: object
+      required:
+      - country
+      - city
+      - state
+      - street
+      - zipcode
+      properties:
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        city:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
+    CustomerRequest:
+      type: object
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
+      properties:
+        customer_id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        create_new_customer:
+          type: boolean
   parameters:
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
+    IdPath:
+      name: id
+      in: path
+      required: true
       schema:
-        type: integer
-        minimum: 0
+        type: string
     PageSize:
       name: page_size
       in: query
@@ -242,12 +241,13 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-    IdPath:
-      name: id
-      in: path
-      required: true
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
       schema:
-        type: string
+        type: integer
+        minimum: 0
   securitySchemes:
     bearerAuth:
       type: http

@@ -107,13 +107,23 @@ paths:
           description: The product was unarchived.
 components:
   schemas:
-    ProductList:
+    CreateProductRequest:
       type: object
+      required:
+      - name
+      - price
+      - tax_category
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Product'
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+        tax_category:
+          type: string
+        license_key_enabled:
+          type: boolean
     Product:
       type: object
       properties:
@@ -141,23 +151,6 @@ components:
         created_at:
           type: string
           format: date-time
-    CreateProductRequest:
-      type: object
-      required:
-      - name
-      - price
-      - tax_category
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        price:
-          $ref: '#/components/schemas/Price'
-        tax_category:
-          type: string
-        license_key_enabled:
-          type: boolean
     Price:
       type: object
       properties:
@@ -183,14 +176,20 @@ components:
           type: integer
         tax_inclusive:
           type: boolean
+    ProductList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
   parameters:
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
+    IdPath:
+      name: id
+      in: path
+      required: true
       schema:
-        type: integer
-        minimum: 0
+        type: string
     PageSize:
       name: page_size
       in: query
@@ -199,12 +198,13 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-    IdPath:
-      name: id
-      in: path
-      required: true
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
       schema:
-        type: string
+        type: integer
+        minimum: 0
   securitySchemes:
     bearerAuth:
       type: http

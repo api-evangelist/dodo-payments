@@ -58,6 +58,18 @@ paths:
                 $ref: '#/components/schemas/CheckoutSession'
 components:
   schemas:
+    CheckoutSessionProductCartItem:
+      type: object
+      required:
+      - product_id
+      - quantity
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        amount:
+          type: integer
     CreateCheckoutSessionRequest:
       type: object
       required:
@@ -80,44 +92,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    CustomerRequest:
-      type: object
-      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
-      properties:
-        customer_id:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        create_new_customer:
-          type: boolean
-    CheckoutSessionProductCartItem:
-      type: object
-      required:
-      - product_id
-      - quantity
-      properties:
-        product_id:
-          type: string
-        quantity:
-          type: integer
-        amount:
-          type: integer
-    CheckoutSession:
-      type: object
-      properties:
-        session_id:
-          type: string
-        checkout_url:
-          type: string
-          format: uri
-        status:
-          type: string
-        created_at:
-          type: string
-          format: date-time
     BillingAddress:
       type: object
       required:
@@ -138,6 +112,32 @@ components:
           type: string
         zipcode:
           type: string
+    CustomerRequest:
+      type: object
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
+      properties:
+        customer_id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        create_new_customer:
+          type: boolean
+    CheckoutSession:
+      type: object
+      properties:
+        session_id:
+          type: string
+        checkout_url:
+          type: string
+          format: uri
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
   securitySchemes:
     bearerAuth:
       type: http

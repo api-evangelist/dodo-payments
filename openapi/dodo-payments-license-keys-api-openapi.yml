@@ -74,6 +74,28 @@ paths:
         '200':
           description: The license key was updated.
 components:
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
   schemas:
     LicenseKeyList:
       type: object
@@ -111,28 +133,6 @@ components:
         created_at:
           type: string
           format: date-time
-  parameters:
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-    PageSize:
-      name: page_size
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

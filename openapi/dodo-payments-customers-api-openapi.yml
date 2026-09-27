@@ -107,6 +107,28 @@ paths:
                     type: string
                     format: uri
 components:
+  parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
   schemas:
     Customer:
       type: object
@@ -125,13 +147,6 @@ components:
         created_at:
           type: string
           format: date-time
-    CustomerList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Customer'
     CreateCustomerRequest:
       type: object
       required:
@@ -145,28 +160,13 @@ components:
           type: string
         phone_number:
           type: string
-  parameters:
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-    PageSize:
-      name: page_size
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
+    CustomerList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
   securitySchemes:
     bearerAuth:
       type: http

@@ -200,13 +200,6 @@ components:
       required: true
       schema:
         type: string
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
     PageSize:
       name: page_size
       in: query
@@ -215,6 +208,13 @@ components:
         type: integer
         minimum: 1
         maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
   securitySchemes:
     bearerAuth:
       type: http
