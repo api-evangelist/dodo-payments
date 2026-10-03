@@ -108,6 +108,13 @@ paths:
                     format: uri
 components:
   parameters:
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
     IdPath:
       name: id
       in: path
@@ -122,14 +129,20 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
   schemas:
+    CreateCustomerRequest:
+      type: object
+      required:
+      - email
+      - name
+      properties:
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        phone_number:
+          type: string
     Customer:
       type: object
       properties:
@@ -147,19 +160,6 @@ components:
         created_at:
           type: string
           format: date-time
-    CreateCustomerRequest:
-      type: object
-      required:
-      - email
-      - name
-      properties:
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        phone_number:
-          type: string
     CustomerList:
       type: object
       properties:

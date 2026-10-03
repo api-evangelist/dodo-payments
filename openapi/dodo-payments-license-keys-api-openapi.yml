@@ -75,6 +75,13 @@ paths:
           description: The license key was updated.
 components:
   parameters:
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
     IdPath:
       name: id
       in: path
@@ -89,21 +96,7 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
   schemas:
-    LicenseKeyList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/LicenseKey'
     LicenseKey:
       type: object
       properties:
@@ -133,6 +126,13 @@ components:
         created_at:
           type: string
           format: date-time
+    LicenseKeyList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/LicenseKey'
   securitySchemes:
     bearerAuth:
       type: http

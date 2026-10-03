@@ -58,60 +58,6 @@ paths:
                 $ref: '#/components/schemas/CheckoutSession'
 components:
   schemas:
-    CheckoutSessionProductCartItem:
-      type: object
-      required:
-      - product_id
-      - quantity
-      properties:
-        product_id:
-          type: string
-        quantity:
-          type: integer
-        amount:
-          type: integer
-    CreateCheckoutSessionRequest:
-      type: object
-      required:
-      - product_cart
-      properties:
-        product_cart:
-          type: array
-          items:
-            $ref: '#/components/schemas/CheckoutSessionProductCartItem'
-        customer:
-          $ref: '#/components/schemas/CustomerRequest'
-        billing_address:
-          $ref: '#/components/schemas/BillingAddress'
-        return_url:
-          type: string
-          format: uri
-        discount_code:
-          type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
-    BillingAddress:
-      type: object
-      required:
-      - country
-      - city
-      - state
-      - street
-      - zipcode
-      properties:
-        country:
-          type: string
-          description: Two-letter ISO country code.
-        city:
-          type: string
-        state:
-          type: string
-        street:
-          type: string
-        zipcode:
-          type: string
     CustomerRequest:
       type: object
       description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
@@ -138,6 +84,60 @@ components:
         created_at:
           type: string
           format: date-time
+    CheckoutSessionProductCartItem:
+      type: object
+      required:
+      - product_id
+      - quantity
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        amount:
+          type: integer
+    BillingAddress:
+      type: object
+      required:
+      - country
+      - city
+      - state
+      - street
+      - zipcode
+      properties:
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        city:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
+    CreateCheckoutSessionRequest:
+      type: object
+      required:
+      - product_cart
+      properties:
+        product_cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/CheckoutSessionProductCartItem'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+        billing_address:
+          $ref: '#/components/schemas/BillingAddress'
+        return_url:
+          type: string
+          format: uri
+        discount_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
   securitySchemes:
     bearerAuth:
       type: http
