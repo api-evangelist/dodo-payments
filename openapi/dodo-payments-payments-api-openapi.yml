@@ -104,19 +104,6 @@ paths:
           description: The line items for the payment.
 components:
   schemas:
-    CustomerRequest:
-      type: object
-      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
-      properties:
-        customer_id:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        create_new_customer:
-          type: boolean
     OneTimeProductCartItem:
       type: object
       required:
@@ -129,6 +116,52 @@ components:
           type: integer
         amount:
           type: integer
+    CreatePaymentRequest:
+      type: object
+      required:
+      - billing
+      - customer
+      - product_cart
+      properties:
+        billing:
+          $ref: '#/components/schemas/BillingAddress'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+        product_cart:
+          type: array
+          items:
+            $ref: '#/components/schemas/OneTimeProductCartItem'
+        payment_link:
+          type: boolean
+        return_url:
+          type: string
+          format: uri
+        discount_code:
+          type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+    BillingAddress:
+      type: object
+      required:
+      - country
+      - city
+      - state
+      - street
+      - zipcode
+      properties:
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        city:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
     Payment:
       type: object
       properties:
@@ -156,26 +189,19 @@ components:
         created_at:
           type: string
           format: date-time
-    BillingAddress:
+    CustomerRequest:
       type: object
-      required:
-      - country
-      - city
-      - state
-      - street
-      - zipcode
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
       properties:
-        country:
+        customer_id:
           type: string
-          description: Two-letter ISO country code.
-        city:
+        email:
           type: string
-        state:
+          format: email
+        name:
           type: string
-        street:
-          type: string
-        zipcode:
-          type: string
+        create_new_customer:
+          type: boolean
     Customer:
       type: object
       properties:
@@ -200,33 +226,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Payment'
-    CreatePaymentRequest:
-      type: object
-      required:
-      - billing
-      - customer
-      - product_cart
-      properties:
-        billing:
-          $ref: '#/components/schemas/BillingAddress'
-        customer:
-          $ref: '#/components/schemas/CustomerRequest'
-        product_cart:
-          type: array
-          items:
-            $ref: '#/components/schemas/OneTimeProductCartItem'
-        payment_link:
-          type: boolean
-        return_url:
-          type: string
-          format: uri
-        discount_code:
-          type: string
-        metadata:
-          type: object
-          additionalProperties:
-            type: string
   parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
     PageNumber:
       name: page_number
       in: query
@@ -234,12 +240,6 @@ components:
       schema:
         type: integer
         minimum: 0
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
     PageSize:
       name: page_size
       in: query

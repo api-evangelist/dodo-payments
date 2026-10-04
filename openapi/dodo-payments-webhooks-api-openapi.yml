@@ -148,6 +148,28 @@ paths:
                   secret:
                     type: string
 components:
+  parameters:
+    WebhookIdPath:
+      name: webhook_id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+    PageSize:
+      name: page_size
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
   schemas:
     Webhook:
       type: object
@@ -193,28 +215,6 @@ components:
           type: object
           additionalProperties:
             type: string
-  parameters:
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-    PageSize:
-      name: page_size
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-    WebhookIdPath:
-      name: webhook_id
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

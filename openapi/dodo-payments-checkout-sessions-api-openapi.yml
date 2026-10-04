@@ -58,19 +58,6 @@ paths:
                 $ref: '#/components/schemas/CheckoutSession'
 components:
   schemas:
-    CustomerRequest:
-      type: object
-      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
-      properties:
-        customer_id:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        create_new_customer:
-          type: boolean
     CheckoutSession:
       type: object
       properties:
@@ -84,38 +71,6 @@ components:
         created_at:
           type: string
           format: date-time
-    CheckoutSessionProductCartItem:
-      type: object
-      required:
-      - product_id
-      - quantity
-      properties:
-        product_id:
-          type: string
-        quantity:
-          type: integer
-        amount:
-          type: integer
-    BillingAddress:
-      type: object
-      required:
-      - country
-      - city
-      - state
-      - street
-      - zipcode
-      properties:
-        country:
-          type: string
-          description: Two-letter ISO country code.
-        city:
-          type: string
-        state:
-          type: string
-        street:
-          type: string
-        zipcode:
-          type: string
     CreateCheckoutSessionRequest:
       type: object
       required:
@@ -138,6 +93,51 @@ components:
           type: object
           additionalProperties:
             type: string
+    CheckoutSessionProductCartItem:
+      type: object
+      required:
+      - product_id
+      - quantity
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        amount:
+          type: integer
+    CustomerRequest:
+      type: object
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
+      properties:
+        customer_id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        create_new_customer:
+          type: boolean
+    BillingAddress:
+      type: object
+      required:
+      - country
+      - city
+      - state
+      - street
+      - zipcode
+      properties:
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        city:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

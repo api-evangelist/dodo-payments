@@ -149,19 +149,6 @@ paths:
           description: The plan was changed.
 components:
   schemas:
-    CustomerRequest:
-      type: object
-      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
-      properties:
-        customer_id:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        create_new_customer:
-          type: boolean
     CreateSubscriptionRequest:
       type: object
       required:
@@ -211,6 +198,43 @@ components:
           type: string
         zipcode:
           type: string
+    SubscriptionList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Subscription'
+    CustomerRequest:
+      type: object
+      description: Either an existing customer reference (customer_id) or new customer details (email, name) used to attach a payment or subscription.
+      properties:
+        customer_id:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        create_new_customer:
+          type: boolean
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: string
+        business_id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone_number:
+          type: string
+        created_at:
+          type: string
+          format: date-time
     Subscription:
       type: object
       properties:
@@ -245,31 +269,13 @@ components:
         created_at:
           type: string
           format: date-time
-    Customer:
-      type: object
-      properties:
-        customer_id:
-          type: string
-        business_id:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        phone_number:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    SubscriptionList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Subscription'
   parameters:
+    IdPath:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
     PageNumber:
       name: page_number
       in: query
@@ -277,12 +283,6 @@ components:
       schema:
         type: integer
         minimum: 0
-    IdPath:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
     PageSize:
       name: page_size
       in: query
