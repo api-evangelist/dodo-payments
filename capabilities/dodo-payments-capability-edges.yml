@@ -1,0 +1,94 @@
+slug: dodo-payments
+provider: Dodo Payments
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 8
+edges:
+- tag: Subscriptions
+  spec_file: dodo-payments-subscriptions-api-openapi.yml
+  capability_id: BC-4240
+  capability_id_l1: BC-4240
+  capability_name: Subscription Lifecycle Management
+  confidence: 0.9
+  evidence: POST /subscriptions createSubscription; POST /subscriptions/{id}/change-plan changeSubscriptionPlan
+    Change a subscription plan
+  reason: Operations create, read, update, charge and re-plan recurring subscriptions, which is plainly
+    subscription lifecycle management. Evidence spans provisioning and in-life modification, so no single
+    L2 is selected.
+- tag: Webhooks
+  spec_file: dodo-payments-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.82
+  evidence: POST /webhooks createWebhook Create a webhook endpoint; GET /webhooks/{webhook_id}/secret
+    getWebhookSigningKey
+  reason: The surface is the lifecycle of outbound webhook endpoints including headers and signing keys
+    exposed to integrating developers, which matches webhook and event subscription management in the
+    developer-platform capability rather than generic plumbing of the vendor's own stack.
+- tag: Discounts
+  spec_file: dodo-payments-discounts-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.8
+  evidence: POST /discounts  createDiscount  Create a discount; schemas Discount, CreateDiscountRequest
+  reason: Lifecycle management of discount codes applied to purchases — discount and promotion management.
+- tag: Licenses
+  spec_file: dodo-payments-licenses-api-openapi.yml
+  capability_id: BC-4240.70
+  capability_id_l1: BC-4240
+  capability_name: Entitlement Enforcement
+  confidence: 0.8
+  evidence: POST /licenses/validate  validateLicense  Validate a license key; POST /licenses/activate  activateLicense;
+    POST /licenses/deactivate  Deactivate a license key instance
+  reason: Runtime validation/activation of license entitlements per instance is entitlement resolution
+    and enforcement.
+- tag: Payments
+  spec_file: dodo-payments-payments-api-openapi.yml
+  capability_id: BC-4250.40
+  capability_id_l1: BC-4250
+  capability_name: Payment Collection & Dunning
+  confidence: 0.8
+  evidence: POST /payments  createPayment  Create a one-time payment; GET /payments/{id}/invoice  Get
+    the invoice for a payment
+  reason: Creation and retrieval of customer payments with invoices and line items — payment authorisation
+    and collection.
+- tag: Customers
+  spec_file: dodo-payments-customers-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.75
+  evidence: POST /customers  createCustomer  Create a customer; schemas CreateCustomerRequest, Customer,
+    CustomerList
+  reason: CRUD over customer master records (plus a customer portal session) — customer data management.
+- tag: Refunds
+  spec_file: dodo-payments-refunds-api-openapi.yml
+  capability_id: BC-4250
+  capability_id_l1: BC-4250
+  capability_name: Subscription Billing & Revenue Management
+  confidence: 0.75
+  evidence: POST /refunds createRefund Create a refund
+  reason: Creating and retrieving refunds against collected payments is part of billing and payment money-movement
+    handling on this merchant-of-record platform. No single L2 is named — refunds straddle invoice adjustment
+    and payment collection — so the L2 is left unset.
+- tag: Checkout Sessions
+  spec_file: dodo-payments-checkout-sessions-api-openapi.yml
+  capability_id: BC-4250.40
+  capability_id_l1: BC-4250
+  capability_name: Payment Collection & Dunning
+  confidence: 0.7
+  evidence: POST /checkouts  createCheckoutSession  Create a checkout session; schemas CheckoutSessionProductCartItem,
+    BillingAddress
+  reason: Creates a hosted checkout for collecting customer payment for cart items — payment collection.
+    Mapped to payment collection within the subscription billing L1 as the closest frame fit.

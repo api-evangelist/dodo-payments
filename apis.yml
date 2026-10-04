@@ -660,6 +660,9 @@ apis:
   - type: APIReference
     url: https://docs.dodopayments.com/api-reference/webhooks
 common:
+- type: CapabilityMap
+  url: capabilities/dodo-payments-capability-edges.yml
+  name: Dodo Payments Business Capability Map
 - type: AgenticAccess
   url: agentic-access/dodo-payments-agentic-access.yml
 - type: VulnerabilityDisclosure
