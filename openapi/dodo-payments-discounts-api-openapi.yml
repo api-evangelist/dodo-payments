@@ -107,6 +107,38 @@ paths:
           description: The discount was deleted.
 components:
   schemas:
+    CreateDiscountRequest:
+      type: object
+      required:
+      - amount
+      - type
+      properties:
+        amount:
+          type: integer
+        type:
+          type: string
+          enum:
+          - percentage
+        code:
+          type: string
+        name:
+          type: string
+        usage_limit:
+          type: integer
+        restricted_to:
+          type: array
+          items:
+            type: string
+        expires_at:
+          type: string
+          format: date-time
+    DiscountList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
     Discount:
       type: object
       properties:
@@ -133,46 +165,7 @@ components:
         created_at:
           type: string
           format: date-time
-    DiscountList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Discount'
-    CreateDiscountRequest:
-      type: object
-      required:
-      - amount
-      - type
-      properties:
-        amount:
-          type: integer
-        type:
-          type: string
-          enum:
-          - percentage
-        code:
-          type: string
-        name:
-          type: string
-        usage_limit:
-          type: integer
-        restricted_to:
-          type: array
-          items:
-            type: string
-        expires_at:
-          type: string
-          format: date-time
   parameters:
-    PageNumber:
-      name: page_number
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 0
     PageSize:
       name: page_size
       in: query
@@ -181,6 +174,13 @@ components:
         type: integer
         minimum: 1
         maximum: 100
+    PageNumber:
+      name: page_number
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
   securitySchemes:
     bearerAuth:
       type: http
