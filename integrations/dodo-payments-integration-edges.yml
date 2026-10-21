@@ -134,6 +134,34 @@ edges:
   category: IDE / developer extension marketplace listing
   badges:
   - Verified namespace
+- partner_name: Antler
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.antler.co/portfolio?0b933bfd_page=5
+  category: accelerator portfolio participation
+  contract_reference:
+    register: Antler portfolio (antler.co/portfolio)
+    standard: null
+    spec_file: null
+    role: accelerator-portfolio-company
+    registered_name: Dodo Payments
+    register_id: https://www.antler.co/portfolio?0b933bfd_page=5
+    register_country: India
+    register_website: https://dodopayments.com
+    matched_domain: dodopayments.com
+    matched_by: domain
+    signal_note: 'participation only: the accelerator''s own portfolio register lists the company (cohort / investment);
+      an ownership and participation record, not conformance or certification'
+    detected_by: sweep-accelerator-portfolios.py
+    detected: '2026-10-21'
+    year: '2024'
+    sector: FinTech
+  detected_by: sweep-accelerator-portfolios.py
+  first_seen: '2026-10-21'
 generated: '2026-10-14'
 method: searched
 checked:
@@ -146,5 +174,10 @@ checked:
 - https://skillsmp.com/sitemap.xml
 - https://www.skills.sh/sitemap.xml
 - eclipse/integrations/eclipse-integration-edges.yml
+- https://500.co/api/startups
+- https://500.co/companies
+- https://www.antler.co/portfolio
+- https://www.techstars.com/portfolio
+- https://www.ycombinator.com/companies
 source:
 - wordpress/integrations/wordpress-integration-edges.yml
