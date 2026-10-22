@@ -68,32 +68,6 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
-- slug: dodo-payments-wordpress-own
-  label: WordPress (own)
-  partner: wordpress
-  partner_name: WordPress (own)
-  category: WordPress plugin
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://wordpress.org/plugins/dodo-payments-for-woocommerce/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
-- slug: dodo-payments-eclipse-foundation-open-vsx
-  label: Eclipse Foundation (open-vsx)
-  partner: eclipse
-  partner_name: Eclipse Foundation (open-vsx)
-  category: IDE / developer extension marketplace listing
-  type: marketplace
-  marketplace: open-vsx
-  channel: partner-built
-  evidence: https://open-vsx.org/namespace/dodopayments
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: dodo-payments-antler
   label: Antler
   partner_name: Antler
@@ -120,5 +94,44 @@
     detected: '2026-10-21'
     year: '2024'
     sector: FinTech
+  status: not-a-workflow
+  arazzo: null
+- slug: dodo-payments-wordpress-own
+  label: WordPress (own)
+  partner: wordpress
+  partner_name: WordPress (own)
+  category: WordPress plugin
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://wordpress.org/plugins/dodo-payments-for-woocommerce/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: dodo-payments-eclipse-foundation-open-vsx
+  label: Eclipse Foundation (open-vsx)
+  partner: eclipse
+  partner_name: Eclipse Foundation (open-vsx)
+  category: IDE / developer extension marketplace listing
+  type: marketplace
+  marketplace: open-vsx
+  channel: partner-built
+  evidence: https://open-vsx.org/namespace/dodopayments
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: dodo-payments-raycast-raycast-store
+  label: Raycast (raycast-store)
+  partner: raycast
+  partner_name: Raycast (raycast-store)
+  category: Raycast Store extension (first-party)
+  type: marketplace
+  marketplace: raycast-store
+  channel: partner-built
+  evidence: https://www.raycast.com/dodopayments/dodo-payments
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
