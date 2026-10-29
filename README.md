@@ -1,4 +1,4 @@
-# Dodo Payments (dodo-payments)
+# Dodo Payments
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,223 +66,147 @@
 
 Dodo Payments is a merchant-of-record (MoR) payments platform for global digital businesses. Its REST API handles one-time payments, subscriptions, checkout sessions, customers, products, discounts, license keys, payouts, refunds, disputes, and webhooks, while Dodo acts as the seller of record and calculates, collects, and remits sales tax, VAT, and GST across 190+ jurisdictions.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/dodo-payments/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/dodo-payments/refs/heads/main/apis.yml)
+**Areas:** Payments · Merchant of Record · Subscription · Billing · Global Commerce
 
-## Tags
+## Dodo Payments on APIs.io
 
-- Payments
-- Merchant of Record
-- Subscriptions
-- Billing
-- Global Commerce
+Everything profiled for Dodo Payments is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/dodo-payments/](https://apis.io/providers/dodo-payments/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (12)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [Dodo Payments Checkout Sessions API](https://apis.io/apis/dodo-payments/dodo-payments-checkout-sessions-api/) — The Checkout Sessions API from Dodo Payments — 2 operation(s) for checkout sessions.
+- [Dodo Payments Customers API](https://apis.io/apis/dodo-payments/dodo-payments-customers-api/) — The Customers API from Dodo Payments — 3 operation(s) for customers.
+- [Dodo Payments Discounts API](https://apis.io/apis/dodo-payments/dodo-payments-discounts-api/) — The Discounts API from Dodo Payments — 2 operation(s) for discounts.
+- [Dodo Payments Disputes API](https://apis.io/apis/dodo-payments/dodo-payments-disputes-api/) — The Disputes API from Dodo Payments — 2 operation(s) for disputes.
+- [Dodo Payments License Keys API](https://apis.io/apis/dodo-payments/dodo-payments-license-keys-api/) — The License Keys API from Dodo Payments — 2 operation(s) for license keys.
+- [Dodo Payments Licenses API](https://apis.io/apis/dodo-payments/dodo-payments-licenses-api/) — The Licenses API from Dodo Payments — 3 operation(s) for licenses.
+- [Dodo Payments API](https://apis.io/apis/dodo-payments/dodo-payments-payments-api/) — The Payments API from Dodo Payments — 4 operation(s) for payments.
+- [Dodo Payments Payouts API](https://apis.io/apis/dodo-payments/dodo-payments-payouts-api/) — The Payouts API from Dodo Payments — 1 operation(s) for payouts.
+- [Dodo Payments Products API](https://apis.io/apis/dodo-payments/dodo-payments-products-api/) — The Products API from Dodo Payments — 4 operation(s) for products.
+- [Dodo Payments Refunds API](https://apis.io/apis/dodo-payments/dodo-payments-refunds-api/) — The Refunds API from Dodo Payments — 2 operation(s) for refunds.
+- [Dodo Payments Subscriptions API](https://apis.io/apis/dodo-payments/dodo-payments-subscriptions-api/) — The Subscriptions API from Dodo Payments — 4 operation(s) for subscriptions.
+- [Dodo Payments Webhooks API](https://apis.io/apis/dodo-payments/dodo-payments-webhooks-api/) — The Webhooks API from Dodo Payments — 4 operation(s) for webhooks.
 
-## APIs
+### Published properties
 
-### Dodo Payments Products API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Create, list, update, and archive the digital products, prices, and files customers can buy, including one-time and recurring (subscription) products.
+#### MCP servers (1)
 
-- **Human URL:** [https://docs.dodopayments.com/api-reference/products](https://docs.dodopayments.com/api-reference/products)
-- **Base URL:** `https://live.dodopayments.com`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [dodo-payments](https://apis.io/servers/dodo-payments/dodo-payments/)
 
-- Products
-- Catalog
-- Digital Goods
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.dodopayments.com/api-reference/products/create-product)
-- [API Reference](https://docs.dodopayments.com/api-reference/products)
-- [OpenAPI](openapi/dodo-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dodo-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dodo-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Dodo Payments Agentic Access](https://apis.io/agentic-access/dodo-payments/dodo-payments-agentic-access/)
 
-### Dodo Payments Payments API
+#### Collections (13)
 
-Create one-time payments and payment links, list and retrieve payments, and pull the invoice and line items for a completed transaction.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.dodopayments.com/api-reference/payments](https://docs.dodopayments.com/api-reference/payments)
-- **Base URL:** `https://live.dodopayments.com`
+- [Dodo Payments API](https://apis.io/collections/dodo-payments/open-dodo-payments/)
+- [Dodo Payments Checkout Sessions API](https://apis.io/collections/dodo-payments/open-dodo-payments-checkout-sessions-api/)
+- [Dodo Payments Checkout Sessions Customers API](https://apis.io/collections/dodo-payments/open-dodo-payments-customers-api/)
+- [Dodo Payments Checkout Sessions Discounts API](https://apis.io/collections/dodo-payments/open-dodo-payments-discounts-api/)
+- [Dodo Payments Checkout Sessions Disputes API](https://apis.io/collections/dodo-payments/open-dodo-payments-disputes-api/)
+- [Dodo Payments Checkout Sessions License Keys API](https://apis.io/collections/dodo-payments/open-dodo-payments-license-keys-api/)
+- [Dodo Payments Checkout Sessions Licenses API](https://apis.io/collections/dodo-payments/open-dodo-payments-licenses-api/)
+- [Dodo Checkout Sessions Payments API](https://apis.io/collections/dodo-payments/open-dodo-payments-payments-api/)
+- [Dodo Payments Checkout Sessions Payouts API](https://apis.io/collections/dodo-payments/open-dodo-payments-payouts-api/)
+- [Dodo Payments Checkout Sessions Products API](https://apis.io/collections/dodo-payments/open-dodo-payments-products-api/)
+- [Dodo Payments Checkout Sessions Refunds API](https://apis.io/collections/dodo-payments/open-dodo-payments-refunds-api/)
+- [Dodo Payments Checkout Sessions Subscriptions API](https://apis.io/collections/dodo-payments/open-dodo-payments-subscriptions-api/)
+- [Dodo Payments Checkout Sessions Webhooks API](https://apis.io/collections/dodo-payments/open-dodo-payments-webhooks-api/)
 
-#### Tags
+#### Security (3)
 
-- Payments
-- Transactions
-- Invoices
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Dodo Payments Authentication](https://apis.io/security/dodo-payments/dodo-payments-authentication/)
+- [Dodo Payments Domain Security](https://apis.io/security/dodo-payments/dodo-payments-domain-security/)
+- [Dodo Payments Vulnerability Disclosure](https://apis.io/security/dodo-payments/dodo-payments-vulnerability-disclosure/)
 
-- [Documentation](https://docs.dodopayments.com/api-reference/payments/create-payment)
-- [API Reference](https://docs.dodopayments.com/api-reference/payments)
-- [OpenAPI](openapi/dodo-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dodo-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dodo-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Dodo Payments Subscriptions API
+Published plans, tiers and prices.
 
-Create and manage recurring subscriptions, change plans with preview, apply on-demand charges, and inspect usage and credit history across the billing lifecycle.
+- [Dodo Payments Plans Pricing](https://apis.io/plans/dodo-payments/dodo-payments-plans-pricing/)
 
-- **Human URL:** [https://docs.dodopayments.com/api-reference/subscriptions](https://docs.dodopayments.com/api-reference/subscriptions)
-- **Base URL:** `https://live.dodopayments.com`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Subscriptions
-- Recurring Billing
-- Plans
+- [Dodo Payments Rate Limits](https://apis.io/rate-limits/dodo-payments/dodo-payments-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://docs.dodopayments.com/api-reference/subscriptions/create-subscription)
-- [API Reference](https://docs.dodopayments.com/api-reference/subscriptions)
-- [OpenAPI](openapi/dodo-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dodo-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dodo-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Dodo Payments Customers API
+- [Dodo Payments Finops](https://apis.io/finops/dodo-payments/dodo-payments-finops/)
 
-Create, list, and update customers and mint self-service customer portal sessions for managing their own subscriptions, payment methods, and invoices.
+## Where to find this API
 
-- **Human URL:** [https://docs.dodopayments.com/api-reference/customers](https://docs.dodopayments.com/api-reference/customers)
-- **Base URL:** `https://live.dodopayments.com`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Customers
-- Customer Portal
-- Wallets
-
-#### Properties
-
-- [Documentation](https://docs.dodopayments.com/api-reference/customers/create-customer)
-- [API Reference](https://docs.dodopayments.com/api-reference/customers)
-- [OpenAPI](openapi/dodo-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dodo-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dodo-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dodo Payments Checkout Sessions API
-
-Create hosted checkout sessions for one-time and subscription products, preview totals and taxes, and retrieve session status to drive a conversion-optimized payment flow.
-
-- **Human URL:** [https://docs.dodopayments.com/api-reference/checkout-sessions](https://docs.dodopayments.com/api-reference/checkout-sessions)
-- **Base URL:** `https://live.dodopayments.com`
-
-#### Tags
-
-- Checkout Sessions
-- Hosted Checkout
-- Conversion
-
-#### Properties
-
-- [Documentation](https://docs.dodopayments.com/api-reference/checkout-sessions/create-checkout-session)
-- [API Reference](https://docs.dodopayments.com/api-reference/checkout-sessions)
-- [OpenAPI](openapi/dodo-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dodo-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dodo-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dodo Payments Discounts API
-
-Create, list, update, and delete discount codes, and look up a discount by its public code to apply percentage or fixed-amount promotions at checkout.
-
-- **Human URL:** [https://docs.dodopayments.com/api-reference/discounts](https://docs.dodopayments.com/api-reference/discounts)
-- **Base URL:** `https://live.dodopayments.com`
-
-#### Tags
-
-- Discounts
-- Coupons
-- Promotions
-
-#### Properties
-
-- [Documentation](https://docs.dodopayments.com/api-reference/discounts/create-discount)
-- [API Reference](https://docs.dodopayments.com/api-reference/discounts)
-- [OpenAPI](openapi/dodo-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dodo-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dodo-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dodo Payments Licenses API
-
-Validate, activate, and deactivate software license keys and manage license key records and per-device instances for licensed digital products.
-
-- **Human URL:** [https://docs.dodopayments.com/api-reference/licenses](https://docs.dodopayments.com/api-reference/licenses)
-- **Base URL:** `https://live.dodopayments.com`
-
-#### Tags
-
-- Licenses
-- License Keys
-- Software Licensing
-
-#### Properties
-
-- [Documentation](https://docs.dodopayments.com/api-reference/licenses/validate-license)
-- [API Reference](https://docs.dodopayments.com/api-reference/licenses)
-- [OpenAPI](openapi/dodo-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dodo-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dodo-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dodo Payments Payouts API
-
-List settlement payouts and retrieve a per-payout breakup, line-item details, and a downloadable CSV reconciling gross sales, fees, taxes, and net settlement.
-
-- **Human URL:** [https://docs.dodopayments.com/api-reference/payouts](https://docs.dodopayments.com/api-reference/payouts)
-- **Base URL:** `https://live.dodopayments.com`
-
-#### Tags
-
-- Payouts
-- Settlements
-- Reporting
-
-#### Properties
-
-- [Documentation](https://docs.dodopayments.com/api-reference/payouts/list-payouts)
-- [API Reference](https://docs.dodopayments.com/api-reference/payouts)
-- [OpenAPI](openapi/dodo-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dodo-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dodo-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dodo Payments Webhooks API
-
-Register and manage webhook endpoints, configure custom headers, and retrieve the signing key used to verify event payloads for payments, subscriptions, refunds, and disputes.
-
-- **Human URL:** [https://docs.dodopayments.com/api-reference/webhooks](https://docs.dodopayments.com/api-reference/webhooks)
-- **Base URL:** `https://live.dodopayments.com`
-
-#### Tags
-
-- Webhooks
-- Events
-- Notifications
-
-#### Properties
-
-- [Documentation](https://docs.dodopayments.com/api-reference/webhooks/create-webhook)
-- [API Reference](https://docs.dodopayments.com/api-reference/webhooks)
-- [OpenAPI](openapi/dodo-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dodo-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dodo-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/dodopayments)
-- [LinkedIn](https://www.linkedin.com/company/dodopayments)
 - [Website](https://dodopayments.com)
 - [Documentation](https://docs.dodopayments.com)
-- [Plans](plans/dodo-payments-plans-pricing.yml)
-- [Rate Limits](rate-limits/dodo-payments-rate-limits.yml)
-- [Fin Ops](finops/dodo-payments-finops.yml)
+- [Blog](https://dodopayments.com/rss.xml)
+- [GitHub](https://github.com/dodopayments)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 28.0** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 46.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 47.5** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 16.1** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/dodo-payments/](https://apis.io/providers/dodo-payments/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Dodo Payments: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/dodo-payments/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
